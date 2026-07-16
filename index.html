@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Timothé Goueu — Ingénieur Géomatique & Expert SIG</title>
+<meta name="description" content="Portfolio de Jean Timothé Goueu, ingénieur géomatique basé à Abidjan : cartographie, WebSIG, géoportails, analyse spatiale et photogrammétrie drone.">
+<meta name="theme-color" content="#0A0A0F">
+<script>
+  (function(){
+    var saved = localStorage.getItem('jtg-theme');
+    var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<meta property="og:title" content="Jean Timothé Goueu — Ingénieur Géomatique & Expert SIG">
+<meta property="og:description" content="Cartographie, WebSIG, géoportails et analyse spatiale en Côte d'Ivoire.">
+<meta property="og:image" content="https://i.imgur.com/WO044ju.jpeg">
+<link rel="icon" href="https://github.com/goueu-jean/goueu-jean.github.io/blob/main/Photos/Jean.jpg?raw=true" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+
+:root{
+  --bg:        #0A0A0F;
+  --bg-elev:   #131319;
+  --bg-elev-2: #1B1B24;
+  --text:      #F3F3F6;
+  --text-mute: #93939F;
+  --border:    rgba(255,255,255,0.08);
+  --nav-bg:    rgba(10,10,15,.75);
+  --accent:    #FF8A3D;
+  --accent-2:  #45D6C6;
+  --accent-3:  #7A8CFF;
+
+  --disp: 'Sora', sans-serif;
+  --body: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --r: 18px;
+}
+
+[data-theme="light"]{
+  --bg:        #FFFFFF;
+  --bg-elev:   #F5F6FA;
+  --bg-elev-2: #EAECF3;
+  --text:      #14141B;
+  --text-mute: #5B5F6E;
+  --border:    rgba(15,15,25,0.10);
+  --nav-bg:    rgba(255,255,255,.78);
+}
+
+[data-theme="light"] .hero-eyebrow,
+[data-theme="light"] .exp-date{ color:var(--text-mute); }
+[data-theme="light"] .btn-outline{ color:var(--text); }
+[data-theme="light"] ::selection{ color:#fff; }
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{ background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.65; overflow-x:hidden; transition:background-color .35s ease, color .35s ease; }
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+.container{ max-width:1180px; margin:0 auto; padding:0 24px; }
+::selection{ background:var(--accent); color:#0A0A0F; }
+h1,h2,h3,h4{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+}
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .55s ease, transform .55s ease; }
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+.eyebrow{ display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.eyebrow::before{ content:''; width:20px; height:1px; background:var(--accent); }
+.sec-title{ font-size:clamp(1.8rem,3.6vw,2.6rem); line-height:1.15; margin-bottom:14px; }
+.sec-sub{ color:var(--text-mute); font-size:1.05rem; max-width:620px; }
+.sec-header{ margin-bottom:48px; }
+.section{ padding:110px 0; }
+
+.btn{
+  display:inline-flex; align-items:center; gap:10px; font-weight:700; font-size:.92rem;
+  padding:14px 26px; border-radius:999px; cursor:pointer; border:1.5px solid transparent;
+  transition:transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn-solid{ background:var(--accent); color:#0A0A0F; }
+.btn-solid:hover{ background:#FFA25E; }
+.btn-outline{ border-color:var(--border); color:var(--text); }
+.btn-outline:hover{ border-color:var(--accent); color:var(--accent); }
+
+/* ===================== NAV ===================== */
+.nav{ position:fixed; top:0; left:0; right:0; z-index:400; background:var(--nav-bg); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+.nav-inner{ max-width:1180px; margin:0 auto; padding:0 24px; height:72px; display:flex; align-items:center; justify-content:space-between; }
+.nav-links{ display:flex; align-items:center; gap:2px; }
+.nav-links a{ font-size:.9rem; font-weight:600; color:var(--text-mute); padding:10px 16px; border-radius:999px; transition:color .2s ease, background .2s ease; }
+.nav-links a:hover, .nav-links a.active{ color:var(--text); background:var(--bg-elev); }
+.nav-avatar{ width:42px; height:42px; border-radius:50%; overflow:hidden; border:2px solid var(--border); }
+.nav-avatar img{ width:100%; height:100%; object-fit:cover; }
+.nav-right{ display:flex; align-items:center; gap:12px; }
+.theme-toggle{
+  width:40px; height:40px; border-radius:50%; border:1px solid var(--border); background:var(--bg-elev);
+  color:var(--text); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:.9rem;
+  transition:background .2s ease, border-color .2s ease;
+}
+.theme-toggle:hover{ border-color:var(--accent); color:var(--accent); }
+.theme-toggle .icon-moon{ display:none; }
+[data-theme="light"] .theme-toggle .icon-sun{ display:none; }
+[data-theme="light"] .theme-toggle .icon-moon{ display:inline; }
+.nav-toggle{ display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; }
+.nav-toggle span{ width:22px; height:2px; background:var(--text); }
+
+/* ---------- Lang toggle (new) ---------- */
+.lang-toggle{
+  width:40px; height:40px; border-radius:50%; border:1px solid var(--border); background:var(--bg-elev);
+  color:var(--text); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:700;
+  transition:background .2s ease, border-color .2s ease; font-family:var(--mono); text-transform:uppercase;
+}
+.lang-toggle:hover{ border-color:var(--accent); color:var(--accent); }
+
+@media (max-width:940px){
+  .nav-links{ 
+    position:fixed; 
+    top:72px; 
+    left:0; 
+    right:0; 
+    bottom:0; 
+    height:calc(100vh - 72px); /* Hauteur moins la navbar */
+    background:var(--bg); 
+    flex-direction:column; 
+    align-items:flex-start; 
+    justify-content:flex-start; /* Aligne en haut */
+    padding:30px 24px; 
+    transform:translateX(100%); 
+    transition:transform .3s ease; 
+    overflow-y:auto; 
+    display:flex; 
+    gap:4px;
+    z-index:999;
+  }
+  .nav-links.open{ 
+    transform:translateX(0); 
+  }
+  .nav-links a{ 
+    width:100%; 
+    padding:20px 6px; 
+    border-bottom:1px solid var(--border); 
+    border-radius:0; 
+    font-size:1.3rem;
+  }
+  .nav-toggle{ 
+    display:flex; 
+  }
+}
+
+/* ===================== HERO ===================== */
+.hero{ padding:180px 0 100px; }
+.hero-grid{ display:grid; grid-template-columns:1fr 0.85fr; gap:60px; align-items:center; }
+.hero-eyebrow{ display:flex; align-items:center; gap:10px; color:var(--text-mute); font-family:var(--mono); font-size:.85rem; margin-bottom:22px; }
+.hero-eyebrow .pulse{ width:8px; height:8px; border-radius:50%; background:var(--accent-2); box-shadow:0 0 0 0 rgba(69,214,198,.6); animation:pulse 2s infinite; }
+@keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(69,214,198,.55);} 70%{box-shadow:0 0 0 8px rgba(69,214,198,0);} 100%{box-shadow:0 0 0 0 rgba(69,214,198,0);} }
+.hero h1{ font-size:clamp(2.3rem,5vw,3.6rem); line-height:1.08; margin-bottom:18px; }
+.hero h1 .accent{ color:var(--accent); }
+.hero-tagline{ font-family:var(--mono); font-size:1.05rem; color:var(--accent-2); margin-bottom:22px; }
+.hero p.lead{ color:var(--text-mute); font-size:1.08rem; max-width:50ch; margin-bottom:34px; }
+.hero-cta{ display:flex; flex-wrap:wrap; gap:14px; margin-bottom:44px; }
+.hero-stack{ display:flex; flex-wrap:wrap; gap:10px; }
+.hero-stack span{ font-family:var(--mono); font-size:.74rem; color:var(--text-mute); border:1px solid var(--border); padding:7px 13px; border-radius:999px; background:var(--bg-elev); }
+
+.hero-photo-wrap{ position:relative; }
+.hero-photo{ border-radius:28px; overflow:hidden; border:1px solid var(--border); aspect-ratio:4/5; }
+.hero-photo img{ width:100%; height:100%; object-fit:cover; }
+.float-badge{
+  position:absolute; background:var(--bg-elev-2); border:1px solid var(--border); border-radius:16px;
+  padding:14px 18px; display:flex; align-items:center; gap:12px; box-shadow:0 20px 40px rgba(0,0,0,.4);
+  animation:float 5s ease-in-out infinite;
+}
+.float-badge .ico{ width:38px; height:38px; border-radius:10px; background:var(--accent); display:flex; align-items:center; justify-content:center; font-size:1.05rem; color:#0A0A0F; }
+.float-badge .lbl small{ display:block; color:var(--text-mute); font-size:.68rem; }
+.float-badge .lbl strong{ font-size:.88rem; }
+.badge-1{ top:-18px; right:-24px; }
+.badge-2{ bottom:20px; left:-30px; animation-delay:1.4s; }
+@keyframes float{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
+@media (max-width:760px){ .badge-1{ right:0; } .badge-2{ left:0; } }
+
+/* ===================== SERVICES ===================== */
+.services-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.service-card{ background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--r); padding:28px; transition:transform .25s ease, border-color .25s ease; }
+.service-card:hover{ transform:translateY(-5px); border-color:var(--accent); }
+.service-ico{ width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:18px; background:var(--bg-elev-2); color:var(--accent); }
+.service-card h3{ font-size:1.05rem; margin-bottom:8px; }
+.service-card p{ color:var(--text-mute); font-size:.9rem; margin-bottom:16px; }
+.service-tags{ display:flex; flex-wrap:wrap; gap:6px; }
+.service-tags span{ font-family:var(--mono); font-size:.68rem; color:var(--text-mute); border:1px solid var(--border); padding:4px 9px; border-radius:6px; }
+@media (max-width:860px){ .services-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .services-grid{ grid-template-columns:1fr; } }
+
+/* ===================== FILTER TABS ===================== */
+.filters{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:40px; }
+.filter-btn{
+  font-family:var(--mono); font-size:.8rem; padding:9px 18px; border-radius:999px; border:1px solid var(--border);
+  background:var(--bg-elev); color:var(--text-mute); cursor:pointer; transition:all .2s ease;
+}
+.filter-btn.active{ background:var(--accent); color:#0A0A0F; border-color:var(--accent); }
+
+/* ===================== EXPERIENCE ===================== */
+.exp-list{ display:flex; flex-direction:column; gap:14px; }
+.exp-item{
+  display:grid; grid-template-columns:56px 130px 1fr; gap:22px; align-items:start;
+  background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--r); padding:24px;
+}
+.exp-logo{ width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-family:var(--disp); font-weight:700; font-size:.85rem; color:#0A0A0F; }
+.exp-date{ font-family:var(--mono); font-size:.78rem; color:var(--text-mute); padding-top:4px; }
+.exp-body h3{ font-size:1.05rem; margin-bottom:2px; }
+.exp-body .org{ color:var(--accent-2); font-size:.9rem; margin-bottom:10px; display:block; }
+.exp-type{ display:inline-block; font-family:var(--mono); font-size:.65rem; text-transform:uppercase; letter-spacing:.05em; padding:3px 9px; border-radius:6px; background:var(--bg-elev-2); color:var(--text-mute); margin-bottom:10px; margin-right:6px; }
+.exp-desc{ color:var(--text-mute); font-size:.9rem; margin-bottom:12px; }
+.exp-tags{ display:flex; flex-wrap:wrap; gap:6px; }
+.exp-tags span{ font-family:var(--mono); font-size:.68rem; color:var(--text-mute); border:1px solid var(--border); padding:3px 9px; border-radius:6px; }
+@media (max-width:700px){ .exp-item{ grid-template-columns:44px 1fr; } .exp-date{ grid-column:2/3; padding-top:0; } .exp-body{ grid-column:1/3; } .exp-logo{ width:44px; height:44px; } }
+
+/* ===================== PROJECTS ===================== */
+.project-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.project-card{ background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; display:flex; flex-direction:column; transition:transform .25s ease, border-color .25s ease; }
+.project-card:hover{ transform:translateY(-5px); border-color:var(--accent); }
+.project-cover{ height:150px; display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:#fff; position:relative; overflow:hidden; background-size:cover; background-position:center; }
+.project-cover.has-img::after{ content:''; position:absolute; inset:0; background:linear-gradient(195deg, rgba(10,10,15,0.05) 40%, rgba(10,10,15,0.65) 100%); }
+.project-cover.has-img{ background-color:#1B1B24; }
+.project-cat{ position:absolute; top:14px; left:14px; z-index:2; font-family:var(--mono); font-size:.66rem; background:rgba(10,10,15,.6); backdrop-filter:blur(4px); padding:5px 10px; border-radius:6px; text-transform:uppercase; letter-spacing:.04em; color:#fff; }
+.project-body{ padding:22px; display:flex; flex-direction:column; flex:1; }
+.project-body h3{ font-size:1.02rem; margin-bottom:8px; }
+.project-body p{ color:var(--text-mute); font-size:.88rem; margin-bottom:16px; flex:1; }
+.project-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+.project-tags span{ font-family:var(--mono); font-size:.66rem; color:var(--text-mute); border:1px solid var(--border); padding:4px 8px; border-radius:6px; }
+.project-links{ display:flex; flex-wrap:wrap; gap:14px; }
+.project-links a{ font-weight:700; font-size:.85rem; color:var(--accent); display:inline-flex; align-items:center; gap:6px; }
+.project-links a:hover{ color:#FFA25E; }
+.project-locked{ font-weight:700; font-size:.85rem; color:var(--text-mute); display:flex; align-items:center; gap:8px; }
+@media (max-width:940px){ .project-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:620px){ .project-grid{ grid-template-columns:1fr; } }
+
+/* ===================== CONTACT ===================== */
+.social-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.social-card{
+  background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--r);
+  padding:36px 24px; text-align:center; display:flex; flex-direction:column; align-items:center;
+  transition:transform .3s ease, background .3s ease, border-color .3s ease;
+}
+.social-card:hover{ transform:translateY(-8px); border-color:var(--accent); }
+.social-ico{
+  width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; color:#fff; margin-bottom:18px;
+}
+.social-card h3{ font-size:1.05rem; margin-bottom:8px; }
+.social-card span{ color:var(--text-mute); font-size:.88rem; word-break:break-word; }
+@media (max-width:760px){ .social-grid{ grid-template-columns:1fr; } }
+.contact-card{ background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--r); padding:40px; }
+.cv-card{ display:flex; flex-direction:column; justify-content:center; align-items:flex-start; text-align:left; }
+.cv-card .ico{ width:52px; height:52px; border-radius:14px; background:var(--accent); color:#0A0A0F; display:flex; align-items:center; justify-content:center; font-size:1.3rem; margin-bottom:18px; }
+.cv-card h4{ font-size:1.1rem; margin-bottom:6px; }
+.cv-card p{ color:var(--text-mute); font-size:.88rem; margin-bottom:20px; }
+
+.quote-card{ background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--r); padding:40px; margin-top:24px; }
+.quote-card p{ font-family:var(--disp); font-weight:600; font-size:1.25rem; line-height:1.5; margin-bottom:16px; }
+.quote-card span{ color:var(--text-mute); font-family:var(--mono); font-size:.82rem; }
+
+/* ===================== FOOTER ===================== */
+.footer{ border-top:1px solid var(--border); padding:36px 0; text-align:center; color:var(--text-mute); font-size:.88rem; }
+.footer .heart{ color:var(--accent); }
+
+@media (max-width:920px){
+  .hero-grid{ grid-template-columns:1fr; }
+  .hero-photo-wrap{ order:-1; max-width:340px; margin:0 auto; }
+  .section{ padding:76px 0; }
+}
+
+@media (max-width:480px){
+  .hero{ padding:132px 0 72px; }
+  .nav-right .btn{ display:none; }
+  .nav-inner{ padding:0 16px; }
+  .container{ padding:0 18px; }
+  .exp-item, .contact-card{ padding:20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-avatar"><img src="https://github.com/goueu-jean/goueu-jean.github.io/blob/main/Photos/Jean.jpg?raw=true" alt="JTG"></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#experience" data-key="nav_exp">Expérience</a></li>
+      <li><a href="#projects" data-key="nav_projects">Projets</a></li>
+      <li><a href="#services" data-key="nav_services">Services</a></li>
+      <li><a href="./cartotheque.html" data-key="nav_cartotheque">Cartothèque</a></li>
+      <li><a href="#contact" data-key="nav_contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <i class="fas fa-sun icon-sun"></i>
+        <i class="fas fa-moon icon-moon"></i>
+      </button>
+      <button class="lang-toggle" id="langToggle" aria-label="Changer de langue">FR</button>
+      <a href="#contact" class="btn btn-solid" style="padding:10px 20px; font-size:.85rem;" data-key="nav_contact_btn">Me contacter</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-eyebrow reveal"><span class="pulse"></span> <span data-key="hero_available">Disponible pour de nouveaux projets — Abidjan, Côte d'Ivoire</span></div>
+      <h1 class="reveal">Jean Timothé Goueu<br><span class="accent" data-key="hero_title">Ingénieur Géomatique</span></h1>
+      <p class="hero-tagline reveal" data-key="hero_tagline">Cartographe de métier. Développeur SIG par passion.</p>
+      <p class="lead reveal" data-key="hero_lead">
+        Je conçois des géoportails, cartes et outils d'analyse spatiale pour des
+        institutions de recherche, collectivités et ONG en Côte d'Ivoire — de la
+        collecte terrain à la mise en ligne.
+      </p>
+      <div class="hero-cta reveal">
+        <a href="#projects" class="btn btn-solid" data-key="hero_cta_projects">Voir mes projets</a>
+        <a href="CV_Jean_Timothe_Goueu.pdf" download class="btn btn-outline"><i class="fas fa-download"></i> <span data-key="hero_cta_cv">Télécharger le CV</span></a>
+      </div>
+      <div class="hero-stack reveal">
+        <span>ArcGIS</span><span>QGIS</span><span>PostGIS</span><span>Python</span><span>Leaflet</span><span>KoboCollect</span>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrap reveal">
+      <div class="hero-photo"><img src="https://github.com/goueu-jean/goueu-jean.github.io/blob/main/Photos/Jean.jpg?raw=true" alt="Jean Timothé Goueu"></div>
+      <div class="float-badge badge-1"><div class="ico"><i class="fas fa-map"></i></div><div class="lbl"><small data-key="badge1_label">Outil principal</small><strong>ArcGIS / QGIS</strong></div></div>
+      <div class="float-badge badge-2"><div class="ico" style="background:var(--accent-2);"><i class="fas fa-check"></i></div><div class="lbl"><small data-key="badge2_label">Projets livrés</small><strong>7+ géospatiaux</strong></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="eyebrow" data-key="services_eyebrow">Services</div>
+      <h2 class="sec-title" data-key="services_title">Ce que je peux faire pour vous</h2>
+      <p class="sec-sub" data-key="services_sub">Des solutions géomatiques sur mesure, de la donnée brute à l'outil de décision.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-ico"><i class="fas fa-earth-africa"></i></div>
+        <h3 data-key="s1_title">Géoportails & WebSIG</h3>
+        <p data-key="s1_desc">Portails cartographiques interactifs pour la visualisation et l'analyse territoriale.</p>
+        <div class="service-tags"><span>ArcGIS Online</span><span>Leaflet</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-ico"><i class="fas fa-map-location-dot"></i></div>
+        <h3 data-key="s2_title">Cartographie thématique</h3>
+        <p data-key="s2_desc">Cartes claires et précises pour rapports, publications et prises de décision.</p>
+        <div class="service-tags"><span>QGIS</span><span>ArcGIS</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-ico"><i class="fas fa-clipboard-list"></i></div>
+        <h3 data-key="s3_title">Collecte de données terrain</h3>
+        <p data-key="s3_desc">Conception de formulaires et campagnes de collecte GPS sur le terrain.</p>
+        <div class="service-tags"><span>KoboCollect</span><span>Survey123</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-ico"><i class="fas fa-helicopter"></i></div>
+        <h3 data-key="s4_title">Drone & Photogrammétrie</h3>
+        <p data-key="s4_desc">Acquisition et traitement d'images aériennes pour modélisation 3D haute résolution.</p>
+        <div class="service-tags"><span>PIX4D</span><span>Metashape</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-ico"><i class="fas fa-database"></i></div>
+        <h3 data-key="s5_title">Bases de données spatiales</h3>
+        <p data-key="s5_desc">Structuration et administration de vos données géographiques à grande échelle.</p>
+        <div class="service-tags"><span>PostGIS</span><span>SQL</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-ico"><i class="fas fa-satellite"></i></div>
+        <h3 data-key="s6_title">Télédétection & Analyse</h3>
+        <p data-key="s6_desc">Transformation d'images satellites en indicateurs actionnables (NDVI, occupation du sol...).</p>
+        <div class="service-tags"><span>SNAP</span><span>ENVI</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section class="section" id="experience" style="background:var(--bg-elev); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="eyebrow" data-key="exp_eyebrow">Parcours</div>
+      <h2 class="sec-title" data-key="exp_title">Expérience & Formation</h2>
+      <p class="sec-sub" data-key="exp_sub">Mon parcours professionnel, académique et associatif.</p>
+    </div>
+
+    <div class="filters reveal" id="expFilters">
+      <button class="filter-btn active" data-filter="all" data-key="filter_all">Tout</button>
+      <button class="filter-btn" data-filter="pro" data-key="filter_pro">Professionnel</button>
+      <button class="filter-btn" data-filter="formation" data-key="filter_formation">Formation</button>
+      <button class="filter-btn" data-filter="certif" data-key="filter_certif">Certifications</button>
+    </div>
+
+    <div class="exp-list reveal" id="expList">
+
+      <div class="exp-item" data-cat="pro">
+        <div class="exp-logo" style="background:var(--accent);">IRD</div>
+        <div class="exp-date" data-key="exp1_date">Depuis 10/2024</div>
+        <div class="exp-body">
+          <h3 data-key="exp1_title">Ingénieur Géomatique</h3>
+          <span class="org" data-key="exp1_org">Institut de Recherche pour le Développement, Abidjan</span>
+          <span class="exp-type" data-key="exp1_type">Poste actuel</span>
+          <p class="exp-desc" data-key="exp1_desc">Responsable géomatique pour le IC-DKF Lab, conception d'une plateforme SIG pour le programme Eco2Dev et développement du géoportail de Jacqueville.</p>
+          <div class="exp-tags"><span>ArcGIS</span><span>QGIS</span><span>PostGIS</span><span>Python</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item" data-cat="pro">
+        <div class="exp-logo" style="background:var(--accent);">IRD</div>
+        <div class="exp-date" data-key="exp2_date">07/2023—09/2024</div>
+        <div class="exp-body">
+          <h3 data-key="exp2_title">Assistant Géomatique et Enquêteur</h3>
+          <span class="org" data-key="exp2_org">Institut de Recherche pour le Développement, Abidjan</span>
+          <span class="exp-type" data-key="exp2_type">Poste rémunéré</span>
+          <p class="exp-desc" data-key="exp2_desc">Création de bases de données SIG, photogrammétrie drone, développement WebSIG et appui au projet ECVPSurvey.</p>
+          <div class="exp-tags"><span>KoboCollect</span><span>Metashape</span><span>PIX4D</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item" data-cat="formation">
+        <div class="exp-logo" style="background:var(--accent-3);">IUA</div>
+        <div class="exp-date" data-key="exp3_date">2022—2024</div>
+        <div class="exp-body">
+          <h3 data-key="exp3_title">Master Géomatique & Ingénierie de l'Environnement</h3>
+          <span class="org" data-key="exp3_org">Institut Universitaire d'Abidjan</span>
+          <span class="exp-type" data-key="exp3_type">Formation</span>
+          <p class="exp-desc" data-key="exp3_desc">Analyse spatiale, bases de données géographiques, télédétection, WebSIG.</p>
+          <div class="exp-tags"><span>SIG</span><span>Télédétection</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item" data-cat="formation">
+        <div class="exp-logo" style="background:var(--accent-3);">IGT</div>
+        <div class="exp-date" data-key="exp4_date">2018—2022</div>
+        <div class="exp-body">
+          <h3 data-key="exp4_title">Master Géographie, aménagement du territoire</h3>
+          <span class="org" data-key="exp4_org">Université Félix Houphouët-Boigny, Abidjan</span>
+          <span class="exp-type" data-key="exp4_type">Formation</span>
+          <p class="exp-desc" data-key="exp4_desc">Cartographie appliquée, diagnostic territorial. Mémoire sur l'aménagement du quartier d'Abobo-Té.</p>
+          <div class="exp-tags"><span>Aménagement</span><span>Cartographie</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item" data-cat="formation">
+        <div class="exp-logo" style="background:var(--accent-3);">IGT</div>
+        <div class="exp-date" data-key="exp5_date">2018—2022</div>
+        <div class="exp-body">
+          <h3 data-key="exp5_title">Licence en Géographie</h3>
+          <span class="org" data-key="exp5_org">Université Félix Houphouët-Boigny, Abidjan</span>
+          <span class="exp-type" data-key="exp5_type">Formation</span>
+          <p class="exp-desc" data-key="exp5_desc">Cartographie appliquée, SIG, diagnostic territorial.</p>
+          <div class="exp-tags"><span>Géographie</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item" data-cat="certif">
+        <div class="exp-logo" style="background:var(--accent-2);"><i class="fas fa-code"></i></div>
+        <div class="exp-date" data-key="exp6_date">Certification</div>
+        <div class="exp-body">
+          <h3 data-key="exp6_title">Programmation Python Essentials</h3>
+          <span class="org" data-key="exp6_org">GOMYCODE</span>
+          <span class="exp-type" data-key="exp6_type">Certification</span>
+          <p class="exp-desc" data-key="exp6_desc">Fondamentaux de la programmation Python appliqués au traitement de données.</p>
+          <div class="exp-tags"><span>Python</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item" data-cat="certif">
+        <div class="exp-logo" style="background:var(--accent-2);"><i class="fas fa-helicopter"></i></div>
+        <div class="exp-date" data-key="exp7_date">Certification</div>
+        <div class="exp-body">
+          <h3 data-key="exp7_title">Formation Drone Mapping</h3>
+          <span class="org" data-key="exp7_org">Agence de Formation Professionnelle</span>
+          <span class="exp-type" data-key="exp7_type">Certification</span>
+          <p class="exp-desc" data-key="exp7_desc">Pilotage de drone et traitement photogrammétrique pour la cartographie.</p>
+          <div class="exp-tags"><span>Drone</span><span>Photogrammétrie</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item" data-cat="certif">
+        <div class="exp-logo" style="background:var(--accent-2);"><i class="fas fa-trophy"></i></div>
+        <div class="exp-date" data-key="exp8_date">Certification</div>
+        <div class="exp-body">
+          <h3 data-key="exp8_title">Hackathon des Startups</h3>
+          <span class="org" data-key="exp8_org">EO for Wetlands and Floods Monitoring</span>
+          <span class="exp-type" data-key="exp8_type">Certification</span>
+          <p class="exp-desc" data-key="exp8_desc">Participation à un hackathon sur l'observation de la Terre appliquée aux zones humides et inondations.</p>
+          <div class="exp-tags"><span>Earth Observation</span></div>
+        </div>
+      </div>
+
+      <div class="exp-item" data-cat="certif">
+        <div class="exp-logo" style="background:var(--accent-2);"><i class="fas fa-flask"></i></div>
+        <div class="exp-date" data-key="exp9_date">Certification</div>
+        <div class="exp-body">
+          <h3 data-key="exp9_title">Attestation de Recherche Expérimentale</h3>
+          <span class="org" data-key="exp9_org">IRD</span>
+          <span class="exp-type" data-key="exp9_type">Certification</span>
+          <p class="exp-desc" data-key="exp9_desc">Reconnaissance des travaux de recherche appliquée menés au sein de l'IRD.</p>
+          <div class="exp-tags"><span>Recherche</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJECTS ===================== -->
+<section class="section" id="projects">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="eyebrow" data-key="projects_eyebrow">Portfolio</div>
+      <h2 class="sec-title" data-key="projects_title">Projets</h2>
+      <p class="sec-sub" data-key="projects_sub">Sept projets géospatiaux réels, menés pour l'IRD et des programmes de recherche en Côte d'Ivoire.</p>
+    </div>
+
+    <div class="filters reveal" id="projFilters">
+      <button class="filter-btn active" data-filter="all" data-key="filter_all">Tout</button>
+      <button class="filter-btn" data-filter="public" data-key="filter_public">Public</button>
+      <button class="filter-btn" data-filter="recherche" data-key="filter_recherche">Recherche</button>
+      <button class="filter-btn" data-filter="prive" data-key="filter_prive">Confidentiel</button>
+    </div>
+
+    <div class="project-grid reveal" id="projList">
+
+      <div class="project-card" data-cat="public">
+        <div class="project-cover has-img" style="background-image:url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/cb/78/32/caption.jpg?w=1000&h=-1&s=1');">
+          <span class="project-cat" data-key="filter_public">Public</span>
+        </div>
+        <div class="project-body">
+          <h3 data-key="proj1_title">Géoportail Jacqueville</h3>
+          <p data-key="proj1_desc">Portail web interactif pour la visualisation et l'analyse territoriale. Plus de 3000 utilisateurs actifs.</p>
+          <div class="project-tags"><span>ArcGIS Online</span><span>Experience Builder</span></div>
+          <div class="project-links"><a href="https://geoportail-jacqueville-ird.opendata.arcgis.com" target="_blank" data-key="proj1_link">Voir le géoportail <i class="fas fa-arrow-up-right-from-square"></i></a></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="public">
+        <div class="project-cover has-img" style="background-image:url('https://thumbs.dreamstime.com/b/flat-illustration-admin-dashboard-design-concept-websites-landing-pages-mobile-applications-posters-banners-332489651.jpg');">
+          <span class="project-cat" data-key="filter_public">Public</span>
+        </div>
+        <div class="project-body">
+          <h3 data-key="proj2_title">Dashboard de suivi territorial</h3>
+          <p data-key="proj2_desc">Tableau de bord analytique pour le suivi en temps réel des indicateurs environnementaux et urbains.</p>
+          <div class="project-tags"><span>ArcGIS Dashboard</span><span>Data Viz</span></div>
+          <div class="project-links"><a href="https://ird.maps.arcgis.com/apps/dashboards/a310e03a6ae74279bbf89ea7332e7f6e" target="_blank" data-key="proj2_link">Voir le dashboard <i class="fas fa-arrow-up-right-from-square"></i></a></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="recherche">
+        <div class="project-cover has-img" style="background-image:url('https://wacavar.net/wp-content/uploads/2025/09/Logo_WACAVAR_2-removebg-preview.png'); background-color:#0F2A28;">
+          <span class="project-cat" data-key="filter_recherche">Recherche</span>
+        </div>
+        <div class="project-body">
+          <h3 data-key="proj3_title">ECVPSurvey</h3>
+          <p data-key="proj3_desc">Cartographie interactive des données d'enquête environnementales du cordon littoral de Jacqueville.</p>
+          <div class="project-tags"><span>KoboCollect</span><span>Experience Builder</span></div>
+          <div class="project-links"><a href="https://experience.arcgis.com/experience/2f357a8c8fae487a8627c648f785ea90" target="_blank" data-key="proj3_link">Voir le projet <i class="fas fa-arrow-up-right-from-square"></i></a></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="recherche">
+        <div class="project-cover has-img" style="background-image:url('https://static.vecteezy.com/ti/vecteur-libre/p1/7956097-concept-d-enquete-montrant-les-personnes-avec-un-test-de-qualite-et-un-rapport-de-satisfaction-adapte-a-la-page-d-atterrissage-interface-utilisateur-application-web-carte-d-introduction-depliant-editorial-et-banniere-plat-moderne-conception-illustration-vectoriel.jpg');">
+          <span class="project-cat" data-key="filter_recherche">Recherche</span>
+        </div>
+        <div class="project-body">
+          <h3 data-key="proj4_title">Enquête urbaine — Daloa</h3>
+          <p data-key="proj4_desc">Traitement spatial et cartes thématiques sur les dynamiques migratoires à partir de données KoboCollect.</p>
+          <div class="project-tags"><span>KoboCollect</span><span>ArcGIS</span></div>
+          <div class="project-links"><a href="https://experience.arcgis.com/experience/e692bba7182d45b3bac9ce775d5b66e5" target="_blank" data-key="proj4_link">Voir le projet <i class="fas fa-arrow-up-right-from-square"></i></a></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="prive">
+        <div class="project-cover has-img" style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');">
+          <span class="project-cat" data-key="filter_prive">Confidentiel</span>
+        </div>
+        <div class="project-body">
+          <h3 data-key="proj5_title">Gestion Urbaine</h3>
+          <p data-key="proj5_desc">Système SIG complet pour la gestion des lotissements et données cadastrales.</p>
+          <div class="project-tags"><span>ArcGIS</span><span>PostgreSQL</span></div>
+          <div class="project-locked"><i class="fas fa-lock"></i> <span data-key="proj5_locked">Accès restreint</span></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="recherche">
+        <div class="project-cover has-img" style="background-image:url('https://www.iq.harvard.edu/sites/g/files/omnuum8171/files/dataverse_logo_square_extra_whitespace.png'); background-color:#0F2A28;">
+          <span class="project-cat" data-key="filter_recherche">Recherche</span>
+        </div>
+        <div class="project-body">
+          <h3 data-key="proj6_title">Eco2Dev Nexus</h3>
+          <p data-key="proj6_desc">Recherches géomatiques sur la transition éco-écologique en Côte d'Ivoire : rapports, cartes, webmaps.</p>
+          <div class="project-tags"><span>Recherche IRD</span><span>Biodiversité</span></div>
+          <div class="project-links"><a href="https://dataverse.ird.fr/dataverse/IC_ECVPSurvey_WACA_VAR" target="_blank" data-key="proj6_link">Accéder aux données <i class="fas fa-arrow-up-right-from-square"></i></a></div>
+        </div>
+      </div>
+
+      <div class="project-card" data-cat="recherche">
+        <div class="project-cover has-img" style="background-image:url('https://www.grizzlead.com/wp-content/uploads/2021/06/pourquoi-site-internet-referencement.jpg');">
+          <span class="project-cat" data-key="filter_recherche">Recherche</span>
+        </div>
+        <div class="project-body">
+          <h3 data-key="proj7_title">Eco2Dev Webmapping Platform</h3>
+          <p data-key="proj7_desc">Site web interactif pour explorer les cartes du projet Eco2Dev Nexus et soutenir la gestion durable des écosystèmes.</p>
+          <div class="project-tags"><span>Webmapping</span><span>QGIS / Leaflet</span></div>
+          <div class="project-links"><a href="https://dataverse.ird.fr/dataset.xhtml?persistentId=doi:10.23708/3IDGQM" target="_blank" data-key="proj7_link">Voir le site <i class="fas fa-arrow-up-right-from-square"></i></a></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="section" id="contact" style="background:var(--bg-elev); border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="eyebrow" data-key="contact_eyebrow">Contact</div>
+      <h2 class="sec-title" data-key="contact_title">Discutons de votre projet</h2>
+      <p class="sec-sub" data-key="contact_sub">Une question, un projet géospatial en tête ? Écrivez-moi.</p>
+    </div>
+
+    <div class="social-grid reveal">
+      <a class="social-card" href="mailto:goueujean@gmail.com">
+        <div class="social-ico" style="background:linear-gradient(135deg,#EA4335,#C5221F);"><i class="fas fa-envelope"></i></div>
+        <h3 data-key="contact_email">Email</h3>
+        <span>goueujean@gmail.com</span>
+      </a>
+      <a class="social-card" href="https://www.linkedin.com/in/jean-timoth%C3%A9-goueu-508575144/" target="_blank">
+        <div class="social-ico" style="background:linear-gradient(135deg,#0A66C2,#004182);"><i class="fab fa-linkedin-in"></i></div>
+        <h3 data-key="contact_linkedin">LinkedIn</h3>
+        <span>Jean Timothé Goueu</span>
+      </a>
+      <a class="social-card" href="https://github.com/Jeant-Tim/" target="_blank">
+        <div class="social-ico" style="background:linear-gradient(135deg,#3A3A45,#15151A);"><i class="fab fa-github"></i></div>
+        <h3 data-key="contact_github">GitHub</h3>
+        <span>Jean Timothé Goueu</span>
+      </a>
+    </div>
+
+    <div class="contact-card cv-card reveal" style="margin-top:22px;">
+      <div class="ico"><i class="fas fa-file-arrow-down"></i></div>
+      <h4 data-key="cv_title">Besoin d'un document imprimé ?</h4>
+      <p data-key="cv_desc">Cliquez pour télécharger mon CV complet au format PDF.</p>
+      <a href="CV_Jean_Timothe_Goueu.pdf" download class="btn btn-solid" data-key="cv_btn">Télécharger le CV</a>
+    </div>
+
+    <div class="quote-card reveal">
+      <p data-key="quote">« Une carte n'est utile que si elle change une décision. »</p>
+      <span data-key="quote_author">— Jean Timothé Goueu</span>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <span data-key="footer">Fait par Jean Timothé Goueu — © 2026</span>
+</footer>
+
+<script>
+// ================= TRANSLATIONS =================
+const translations = {
+  fr: {
+    nav_exp: "Expérience",
+    nav_projects: "Projets",
+    nav_services: "Services",
+    nav_cartotheque: "Cartothèque",
+    nav_contact: "Contact",
+    nav_contact_btn: "Me contacter",
+    hero_available: "Disponible pour de nouveaux projets — Abidjan, Côte d'Ivoire",
+    hero_title: "Ingénieur Géomatique",
+    hero_tagline: "Cartographe de métier. Développeur SIG par passion.",
+    hero_lead: "Je conçois des géoportails, cartes et outils d'analyse spatiale pour des institutions de recherche, collectivités et ONG en Côte d'Ivoire — de la collecte terrain à la mise en ligne.",
+    hero_cta_projects: "Voir mes projets",
+    hero_cta_cv: "Télécharger le CV",
+    badge1_label: "Outil principal",
+    badge2_label: "Projets livrés",
+    services_eyebrow: "Services",
+    services_title: "Ce que je peux faire pour vous",
+    services_sub: "Des solutions géomatiques sur mesure, de la donnée brute à l'outil de décision.",
+    s1_title: "Géoportails & WebSIG",
+    s1_desc: "Portails cartographiques interactifs pour la visualisation et l'analyse territoriale.",
+    s2_title: "Cartographie thématique",
+    s2_desc: "Cartes claires et précises pour rapports, publications et prises de décision.",
+    s3_title: "Collecte de données terrain",
+    s3_desc: "Conception de formulaires et campagnes de collecte GPS sur le terrain.",
+    s4_title: "Drone & Photogrammétrie",
+    s4_desc: "Acquisition et traitement d'images aériennes pour modélisation 3D haute résolution.",
+    s5_title: "Bases de données spatiales",
+    s5_desc: "Structuration et administration de vos données géographiques à grande échelle.",
+    s6_title: "Télédétection & Analyse",
+    s6_desc: "Transformation d'images satellites en indicateurs actionnables (NDVI, occupation du sol...).",
+    exp_eyebrow: "Parcours",
+    exp_title: "Expérience & Formation",
+    exp_sub: "Mon parcours professionnel, académique et associatif.",
+    filter_all: "Tout",
+    filter_pro: "Professionnel",
+    filter_formation: "Formation",
+    filter_certif: "Certifications",
+    exp1_date: "Depuis 10/2024",
+    exp1_title: "Ingénieur Géomatique",
+    exp1_org: "Institut de Recherche pour le Développement, Abidjan",
+    exp1_type: "Poste actuel",
+    exp1_desc: "Responsable géomatique pour le IC-DKF Lab, conception d'une plateforme SIG pour le programme Eco2Dev et développement du géoportail de Jacqueville.",
+    exp2_date: "07/2023—09/2024",
+    exp2_title: "Assistant Géomatique et Enquêteur",
+    exp2_org: "Institut de Recherche pour le Développement, Abidjan",
+    exp2_type: "Poste rémunéré",
+    exp2_desc: "Création de bases de données SIG, photogrammétrie drone, développement WebSIG et appui au projet ECVPSurvey.",
+    exp3_date: "2022—2024",
+    exp3_title: "Master Géomatique & Ingénierie de l'Environnement",
+    exp3_org: "Institut Universitaire d'Abidjan",
+    exp3_type: "Formation",
+    exp3_desc: "Analyse spatiale, bases de données géographiques, télédétection, WebSIG.",
+    exp4_date: "2018—2022",
+    exp4_title: "Master Géographie, aménagement du territoire",
+    exp4_org: "Université Félix Houphouët-Boigny, Abidjan",
+    exp4_type: "Formation",
+    exp4_desc: "Cartographie appliquée, diagnostic territorial. Mémoire sur l'aménagement du quartier d'Abobo-Té.",
+    exp5_date: "2018—2022",
+    exp5_title: "Licence en Géographie",
+    exp5_org: "Université Félix Houphouët-Boigny, Abidjan",
+    exp5_type: "Formation",
+    exp5_desc: "Cartographie appliquée, SIG, diagnostic territorial.",
+    exp6_date: "Certification",
+    exp6_title: "Programmation Python Essentials",
+    exp6_org: "GOMYCODE",
+    exp6_type: "Certification",
+    exp6_desc: "Fondamentaux de la programmation Python appliqués au traitement de données.",
+    exp7_date: "Certification",
+    exp7_title: "Formation Drone Mapping",
+    exp7_org: "Agence de Formation Professionnelle",
+    exp7_type: "Certification",
+    exp7_desc: "Pilotage de drone et traitement photogrammétrique pour la cartographie.",
+    exp8_date: "Certification",
+    exp8_title: "Hackathon des Startups",
+    exp8_org: "EO for Wetlands and Floods Monitoring",
+    exp8_type: "Certification",
+    exp8_desc: "Participation à un hackathon sur l'observation de la Terre appliquée aux zones humides et inondations.",
+    exp9_date: "Certification",
+    exp9_title: "Attestation de Recherche Expérimentale",
+    exp9_org: "IRD",
+    exp9_type: "Certification",
+    exp9_desc: "Reconnaissance des travaux de recherche appliquée menés au sein de l'IRD.",
+    projects_eyebrow: "Portfolio",
+    projects_title: "Projets",
+    projects_sub: "Sept projets géospatiaux réels, menés pour l'IRD et des programmes de recherche en Côte d'Ivoire.",
+    filter_public: "Public",
+    filter_recherche: "Recherche",
+    filter_prive: "Confidentiel",
+    proj1_title: "Géoportail Jacqueville",
+    proj1_desc: "Portail web interactif pour la visualisation et l'analyse territoriale. Plus de 3000 utilisateurs actifs.",
+    proj1_link: "Voir le géoportail",
+    proj2_title: "Dashboard de suivi territorial",
+    proj2_desc: "Tableau de bord analytique pour le suivi en temps réel des indicateurs environnementaux et urbains.",
+    proj2_link: "Voir le dashboard",
+    proj3_title: "ECVPSurvey",
+    proj3_desc: "Cartographie interactive des données d'enquête environnementales du cordon littoral de Jacqueville.",
+    proj3_link: "Voir le projet",
+    proj4_title: "Enquête urbaine — Daloa",
+    proj4_desc: "Traitement spatial et cartes thématiques sur les dynamiques migratoires à partir de données KoboCollect.",
+    proj4_link: "Voir le projet",
+    proj5_title: "Gestion Urbaine",
+    proj5_desc: "Système SIG complet pour la gestion des lotissements et données cadastrales.",
+    proj5_locked: "Accès restreint",
+    proj6_title: "Eco2Dev Nexus",
+    proj6_desc: "Recherches géomatiques sur la transition éco-écologique en Côte d'Ivoire : rapports, cartes, webmaps.",
+    proj6_link: "Accéder aux données",
+    proj7_title: "Eco2Dev Webmapping Platform",
+    proj7_desc: "Site web interactif pour explorer les cartes du projet Eco2Dev Nexus et soutenir la gestion durable des écosystèmes.",
+    proj7_link: "Voir le site",
+    contact_eyebrow: "Contact",
+    contact_title: "Discutons de votre projet",
+    contact_sub: "Une question, un projet géospatial en tête ? Écrivez-moi.",
+    contact_email: "Email",
+    contact_linkedin: "LinkedIn",
+    contact_github: "GitHub",
+    cv_title: "Besoin d'un document imprimé ?",
+    cv_desc: "Cliquez pour télécharger mon CV complet au format PDF.",
+    cv_btn: "Télécharger le CV",
+    quote: "« Une carte n'est utile que si elle change une décision. »",
+    quote_author: "— Jean Timothé Goueu",
+    footer: "Fait par Jean Timothé Goueu — © 2026"
+  },
+  en: {
+    nav_exp: "Experience",
+    nav_projects: "Projects",
+    nav_services: "Services",
+    nav_cartotheque: "Map Library",
+    nav_contact: "Contact",
+    nav_contact_btn: "Contact me",
+    hero_available: "Available for new projects — Abidjan, Ivory Coast",
+    hero_title: "Geomatics Engineer",
+    hero_tagline: "Cartographer by trade. GIS Developer by passion.",
+    hero_lead: "I design geoportals, maps and spatial analysis tools for research institutions, local authorities and NGOs in Ivory Coast — from field data collection to online deployment.",
+    hero_cta_projects: "View my projects",
+    hero_cta_cv: "Download CV",
+    badge1_label: "Main tool",
+    badge2_label: "Projects delivered",
+    services_eyebrow: "Services",
+    services_title: "What I can do for you",
+    services_sub: "Bespoke geomatics solutions, from raw data to decision-making tools.",
+    s1_title: "Geoportals & WebGIS",
+    s1_desc: "Interactive cartographic portals for territorial visualization and analysis.",
+    s2_title: "Thematic Mapping",
+    s2_desc: "Clear and accurate maps for reports, publications and decision-making.",
+    s3_title: "Field Data Collection",
+    s3_desc: "Form design and GPS data collection campaigns in the field.",
+    s4_title: "Drone & Photogrammetry",
+    s4_desc: "Acquisition and processing of aerial images for high-resolution 3D modeling.",
+    s5_title: "Spatial Databases",
+    s5_desc: "Structuring and administration of your large-scale geographic data.",
+    s6_title: "Remote Sensing & Analysis",
+    s6_desc: "Transforming satellite images into actionable indicators (NDVI, land use...).",
+    exp_eyebrow: "Career",
+    exp_title: "Experience & Education",
+    exp_sub: "My professional, academic and associative journey.",
+    filter_all: "All",
+    filter_pro: "Professional",
+    filter_formation: "Education",
+    filter_certif: "Certifications",
+    exp1_date: "Since 10/2024",
+    exp1_title: "Geomatics Engineer",
+    exp1_org: "Institute of Research for Development, Abidjan",
+    exp1_type: "Current position",
+    exp1_desc: "Geomatics lead for the IC-DKF Lab, designing a GIS platform for the Eco2Dev program and developing the Jacqueville geoportal.",
+    exp2_date: "07/2023—09/2024",
+    exp2_title: "Geomatics Assistant & Surveyor",
+    exp2_org: "Institute of Research for Development, Abidjan",
+    exp2_type: "Paid position",
+    exp2_desc: "Creation of GIS databases, drone photogrammetry, WebGIS development and support for the ECVPSurvey project.",
+    exp3_date: "2022—2024",
+    exp3_title: "Master in Geomatics & Environmental Engineering",
+    exp3_org: "University Institute of Abidjan",
+    exp3_type: "Education",
+    exp3_desc: "Spatial analysis, geographic databases, remote sensing, WebGIS.",
+    exp4_date: "2018—2022",
+    exp4_title: "Master in Geography, Territorial Planning",
+    exp4_org: "Félix Houphouët-Boigny University, Abidjan",
+    exp4_type: "Education",
+    exp4_desc: "Applied cartography, territorial diagnosis. Thesis on the planning of the Abobo-Té neighborhood.",
+    exp5_date: "2018—2022",
+    exp5_title: "Bachelor in Geography",
+    exp5_org: "Félix Houphouët-Boigny University, Abidjan",
+    exp5_type: "Education",
+    exp5_desc: "Applied cartography, GIS, territorial diagnosis.",
+    exp6_date: "Certification",
+    exp6_title: "Python Programming Essentials",
+    exp6_org: "GOMYCODE",
+    exp6_type: "Certification",
+    exp6_desc: "Fundamentals of Python programming applied to data processing.",
+    exp7_date: "Certification",
+    exp7_title: "Drone Mapping Training",
+    exp7_org: "Professional Training Agency",
+    exp7_type: "Certification",
+    exp7_desc: "Drone piloting and photogrammetric processing for cartography.",
+    exp8_date: "Certification",
+    exp8_title: "Startup Hackathon",
+    exp8_org: "EO for Wetlands and Floods Monitoring",
+    exp8_type: "Certification",
+    exp8_desc: "Participation in a hackathon on Earth Observation applied to wetlands and floods.",
+    exp9_date: "Certification",
+    exp9_title: "Experimental Research Certificate",
+    exp9_org: "IRD",
+    exp9_type: "Certification",
+    exp9_desc: "Recognition of applied research work carried out within the IRD.",
+    projects_eyebrow: "Portfolio",
+    projects_title: "Projects",
+    projects_sub: "Seven real geospatial projects, carried out for the IRD and research programs in Ivory Coast.",
+    filter_public: "Public",
+    filter_recherche: "Research",
+    filter_prive: "Private",
+    proj1_title: "Jacqueville Geoportal",
+    proj1_desc: "Interactive web portal for territorial visualization and analysis. Over 3,000 active users.",
+    proj1_link: "View the geoportal",
+    proj2_title: "Territorial Monitoring Dashboard",
+    proj2_desc: "Analytical dashboard for real-time monitoring of environmental and urban indicators.",
+    proj2_link: "View the dashboard",
+    proj3_title: "ECVPSurvey",
+    proj3_desc: "Interactive mapping of environmental survey data from the Jacqueville coastal strip.",
+    proj3_link: "View the project",
+    proj4_title: "Urban Survey — Daloa",
+    proj4_desc: "Spatial processing and thematic maps on migration dynamics using KoboCollect data.",
+    proj4_link: "View the project",
+    proj5_title: "Urban Management",
+    proj5_desc: "Complete GIS system for land subdivision management and cadastral data.",
+    proj5_locked: "Restricted access",
+    proj6_title: "Eco2Dev Nexus",
+    proj6_desc: "Geomatics research on the eco-ecological transition in Ivory Coast: reports, maps, webmaps.",
+    proj6_link: "Access data",
+    proj7_title: "Eco2Dev Webmapping Platform",
+    proj7_desc: "Interactive website to explore the maps of the Eco2Dev Nexus project and support sustainable ecosystem management.",
+    proj7_link: "View the site",
+    contact_eyebrow: "Contact",
+    contact_title: "Let's discuss your project",
+    contact_sub: "A question, a geospatial project in mind? Write to me.",
+    contact_email: "Email",
+    contact_linkedin: "LinkedIn",
+    contact_github: "GitHub",
+    cv_title: "Need a printed document?",
+    cv_desc: "Click to download my complete CV in PDF format.",
+    cv_btn: "Download CV",
+    quote: "« A map is only useful if it changes a decision. »",
+    quote_author: "— Jean Timothé Goueu",
+    footer: "Made by Jean Timothé Goueu — © 2026"
+  }
+};
+
+// ================= LANGUAGE STATE =================
+let currentLang = localStorage.getItem('jtg-lang') || 'fr';
+const langToggle = document.getElementById('langToggle');
+
+// ================= APPLY TRANSLATIONS =================
+function applyTranslations(lang) {
+  const t = translations[lang];
+  if (!t) return;
+  document.documentElement.lang = lang;
+  langToggle.textContent = lang.toUpperCase();
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.dataset.key;
+    if (t[key] !== undefined) {
+      // Preserve HTML if needed (for footer with heart)
+      if (key === 'footer') {
+        el.innerHTML = t[key];
+      } else {
+        el.textContent = t[key];
+      }
+    }
+  });
+  localStorage.setItem('jtg-lang', lang);
+}
+
+// ================= TOGGLE EVENT =================
+langToggle.addEventListener('click', () => {
+  const nextLang = currentLang === 'fr' ? 'en' : 'fr';
+  currentLang = nextLang;
+  applyTranslations(currentLang);
+});
+
+// ================= INITIAL LANG =================
+applyTranslations(currentLang);
+
+// ================= THEME TOGGLE =================
+const themeToggle = document.getElementById('themeToggle');
+if(themeToggle){
+  themeToggle.addEventListener('click', ()=>{
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('jtg-theme', next);
+  });
+}
+
+// ================= MOBILE MENU =================
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+if(navToggle){
+  navToggle.addEventListener('click', ()=> navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> navLinks.classList.remove('open')));
+}
+
+// ================= REVEAL =================
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduceMotion){
+  document.querySelectorAll('.reveal').forEach(el=> el.classList.add('in'));
+}else{
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:0.1, rootMargin:'0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+}
+
+// ================= EXPERIENCE FILTERS =================
+document.querySelectorAll('#expFilters .filter-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#expFilters .filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('#expList .exp-item').forEach(item=>{
+      item.style.display = (f === 'all' || item.dataset.cat === f) ? '' : 'none';
+    });
+  });
+});
+
+// ================= PROJECT FILTERS =================
+document.querySelectorAll('#projFilters .filter-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#projFilters .filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('#projList .project-card').forEach(item=>{
+      item.style.display = (f === 'all' || item.dataset.cat === f) ? '' : 'none';
+    });
+  });
+});
+
+// ================= ACTIVE NAV ON SCROLL =================
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a[href^="#"]');
+window.addEventListener('scroll', ()=>{
+  let current = '';
+  sections.forEach(sec=>{ if(window.scrollY >= sec.offsetTop - 130) current = sec.id; });
+  links.forEach(a=> a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+</script>
+</body>
+</html>
