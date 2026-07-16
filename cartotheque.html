@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartothèque — Jean Timothé Goueu</title>
+<meta name="description" content="Galerie cartographique de Jean Timothé Goueu : cartes thématiques, NDVI, modèles numériques de terrain et orthophotographies drone en Côte d'Ivoire.">
+<meta name="theme-color" content="#0A0A0F">
+<script>
+  (function(){
+    var saved = localStorage.getItem('jtg-theme');
+    var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+<meta property="og:title" content="Cartothèque — Jean Timothé Goueu">
+<meta property="og:description" content="Galerie cartographique : cartes thématiques, NDVI, MNT et orthophotographies drone.">
+<link rel="icon" href="https://github.com/goueu-jean/goueu-jean.github.io/blob/main/Photos/Jean.jpg?raw=true" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+
+:root{
+  --bg:        #0A0A0F;
+  --bg-elev:   #131319;
+  --bg-elev-2: #1B1B24;
+  --text:      #F3F3F6;
+  --text-mute: #93939F;
+  --border:    rgba(255,255,255,0.08);
+  --nav-bg:    rgba(10,10,15,.75);
+  --accent:    #FF8A3D;
+  --accent-2:  #45D6C6;
+  --accent-3:  #7A8CFF;
+
+  --disp: 'Sora', sans-serif;
+  --body: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --r: 18px;
+}
+[data-theme="light"]{
+  --bg:        #FFFFFF;
+  --bg-elev:   #F5F6FA;
+  --bg-elev-2: #EAECF3;
+  --text:      #14141B;
+  --text-mute: #5B5F6E;
+  --border:    rgba(15,15,25,0.10);
+  --nav-bg:    rgba(255,255,255,.78);
+}
+[data-theme="light"] ::selection{ color:#fff; }
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{ background:var(--bg); color:var(--text); font-family:var(--body); line-height:1.65; overflow-x:hidden; transition:background-color .35s ease, color .35s ease; }
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+::selection{ background:var(--accent); color:#0A0A0F; }
+h1,h2,h3{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
+.container{ max-width:1280px; margin:0 auto; padding:0 24px; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+}
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s ease; }
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* ===================== NAV ===================== */
+.nav{ position:fixed; top:0; left:0; right:0; z-index:400; background:var(--nav-bg); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); }
+.nav-inner{ max-width:1280px; margin:0 auto; padding:0 24px; height:72px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.back-link{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:.92rem; color:var(--text); }
+.back-link i{ color:var(--accent); }
+.nav-right{ display:flex; align-items:center; gap:10px; }
+.lang-pill{ display:flex; background:var(--bg-elev); border-radius:999px; padding:3px; border:1px solid var(--border); }
+.lang-pill button{ border:none; background:none; font-family:var(--mono); font-size:.72rem; font-weight:600; padding:7px 13px; border-radius:999px; cursor:pointer; color:var(--text-mute); }
+.lang-pill button.active{ background:var(--accent); color:#0A0A0F; }
+.theme-toggle{
+  width:40px; height:40px; border-radius:50%; border:1px solid var(--border); background:var(--bg-elev);
+  color:var(--text); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:.9rem;
+  transition:background .2s ease, border-color .2s ease;
+}
+.theme-toggle:hover{ border-color:var(--accent); color:var(--accent); }
+.theme-toggle .icon-moon{ display:none; }
+[data-theme="light"] .theme-toggle .icon-sun{ display:none; }
+[data-theme="light"] .theme-toggle .icon-moon{ display:inline; }
+
+/* ===================== HEADER ===================== */
+.gallery-header{ padding:150px 0 60px; text-align:center; }
+.eyebrow{ display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+.eyebrow::before{ content:''; width:20px; height:1px; background:var(--accent); }
+.gallery-title{ font-size:clamp(2.1rem,5vw,3.2rem); margin-bottom:16px; }
+.gallery-subtitle{ color:var(--text-mute); font-size:1.08rem; max-width:640px; margin:0 auto; }
+
+/* ===================== FILTERS ===================== */
+.filters{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:52px; }
+.filter-btn{
+  font-family:var(--mono); font-size:.8rem; padding:9px 18px; border-radius:999px; border:1px solid var(--border);
+  background:var(--bg-elev); color:var(--text-mute); cursor:pointer; transition:all .2s ease;
+}
+.filter-btn.active{ background:var(--accent); color:#0A0A0F; border-color:var(--accent); }
+.filter-btn:hover:not(.active){ border-color:var(--accent); color:var(--text); }
+
+/* ===================== GRID ===================== */
+.map-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; padding-bottom:40px; }
+.map-card{
+  background:var(--bg-elev); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; cursor:pointer;
+  display:flex; flex-direction:column; opacity:0; transform:translateY(20px); transition:transform .5s ease, opacity .5s ease, border-color .25s ease;
+}
+.map-card.visible{ opacity:1; transform:translateY(0); }
+.map-card:hover{ border-color:var(--accent); transform:translateY(-5px); }
+.map-cover{ position:relative; height:220px; overflow:hidden; background:linear-gradient(135deg,var(--bg-elev-2),var(--bg-elev)); }
+.map-cover img{ width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
+.map-card:hover .map-cover img{ transform:scale(1.08); }
+.map-overlay{
+  position:absolute; inset:0; background:linear-gradient(to top, rgba(10,10,15,.92) 0%, rgba(10,10,15,.25) 55%, transparent 100%);
+  display:flex; flex-direction:column; justify-content:flex-end; padding:18px; opacity:0; transition:opacity .3s ease;
+}
+.map-card:hover .map-overlay{ opacity:1; }
+.map-cat-pill{ align-self:flex-start; font-family:var(--mono); font-size:.66rem; text-transform:uppercase; letter-spacing:.04em; background:rgba(255,138,61,.18); color:var(--accent); border:1px solid rgba(255,138,61,.35); padding:4px 10px; border-radius:999px; margin-bottom:8px; }
+.map-overlay-title{ color:#fff; font-family:var(--disp); font-weight:700; font-size:1.02rem; margin-bottom:4px; }
+.map-overlay-desc{ color:rgba(255,255,255,.75); font-size:.82rem; line-height:1.4; }
+.map-body{ padding:18px 20px 22px; }
+.map-body h3{ font-size:1rem; margin-bottom:10px; line-height:1.3; }
+.map-meta{ display:flex; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+.map-meta span{ font-size:.8rem; color:var(--text-mute); display:flex; align-items:center; gap:5px; }
+.map-tags{ display:flex; flex-wrap:wrap; gap:6px; }
+.map-tags span{ font-family:var(--mono); font-size:.66rem; color:var(--text-mute); border:1px solid var(--border); padding:4px 9px; border-radius:6px; }
+@media (max-width:980px){ .map-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:620px){ .map-grid{ grid-template-columns:1fr; } }
+
+/* ===================== COUNTER / PAGINATION ===================== */
+.counter{ text-align:center; color:var(--text-mute); font-size:.92rem; margin-bottom:28px; }
+.counter strong{ color:var(--text); }
+.pagination{ display:flex; justify-content:center; align-items:center; gap:16px; padding-bottom:110px; }
+.page-btn{
+  font-family:var(--mono); font-size:.82rem; padding:10px 20px; border-radius:999px; border:1px solid var(--border);
+  background:var(--bg-elev); color:var(--text); cursor:pointer; transition:all .2s ease;
+}
+.page-btn:hover:not(:disabled){ border-color:var(--accent); color:var(--accent); }
+.page-btn:disabled{ opacity:.35; cursor:not-allowed; }
+.page-info{ font-family:var(--mono); font-size:.82rem; color:var(--text-mute); min-width:70px; text-align:center; }
+
+/* ===================== MODAL ===================== */
+.modal{ display:none; position:fixed; inset:0; background:rgba(5,5,8,.92); z-index:1000; backdrop-filter:blur(16px); align-items:center; justify-content:center; padding:24px; opacity:0; transition:opacity .3s ease; }
+.modal.active{ display:flex; opacity:1; }
+body.modal-open{ overflow:hidden; }
+.modal-content{
+  position:relative; max-width:900px; width:100%; max-height:90vh; overflow-y:auto;
+  background:var(--bg-elev); border:1px solid var(--border); border-radius:20px;
+  transform:scale(.94); transition:transform .3s ease; display:flex; flex-direction:column;
+}
+.modal.active .modal-content{ transform:scale(1); }
+.modal-close{
+  position:absolute; top:16px; right:16px; width:42px; height:42px; border-radius:50%; border:none;
+  background:rgba(10,10,15,.6); color:#fff; font-size:1.3rem; cursor:pointer; z-index:5;
+  display:flex; align-items:center; justify-content:center; transition:all .2s ease;
+}
+.modal-close:hover{ background:var(--accent); color:#0A0A0F; transform:rotate(90deg); }
+.modal-image{ width:100%; max-height:52vh; object-fit:contain; background:var(--bg); }
+.modal-info{ padding:32px; }
+.modal-title{ font-size:1.6rem; margin-bottom:12px; }
+.modal-description{ color:var(--text-mute); font-size:1.02rem; margin-bottom:24px; }
+.modal-details{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:16px; background:var(--bg-elev-2); border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:20px; }
+.detail-item{ text-align:center; }
+.detail-label{ font-family:var(--mono); font-size:.68rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-mute); margin-bottom:6px; }
+.detail-value{ font-family:var(--disp); font-weight:700; font-size:.95rem; }
+.modal-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+.modal-tags span{ font-family:var(--mono); font-size:.72rem; color:var(--text-mute); border:1px solid var(--border); padding:5px 11px; border-radius:8px; }
+@media (max-width:700px){ .modal-info{ padding:22px; } .modal-title{ font-size:1.3rem; } }
+
+@media (max-width:480px){
+  .gallery-header{ padding:120px 0 40px; }
+  .nav-inner{ padding:0 16px; }
+  .container{ padding:0 18px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="./index.html" class="back-link"><i class="fas fa-arrow-left"></i> <span data-fr="Retour au Portfolio" data-en="Back to Portfolio">Retour au Portfolio</span></a>
+    <div class="nav-right">
+      <div class="lang-pill">
+        <button class="active" data-lang="fr">FR</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <i class="fas fa-sun icon-sun"></i>
+        <i class="fas fa-moon icon-moon"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="gallery-header container reveal">
+  <div class="eyebrow"><i class="fas fa-map"></i> Cartothèque</div>
+  <h1 class="gallery-title" data-fr="Galerie Cartographique" data-en="Cartographic Gallery">Galerie Cartographique</h1>
+  <p class="gallery-subtitle" data-fr="Une sélection de mes réalisations cartographiques : analyses spatiales, cartes thématiques et visualisations de données géospatiales." data-en="A selection of my cartographic work: spatial analyses, thematic maps and geospatial data visualizations.">
+    Une sélection de mes réalisations cartographiques : analyses spatiales, cartes
+    thématiques et visualisations de données géospatiales.
+  </p>
+</header>
+
+<div class="container">
+  <div class="filters reveal" id="filters">
+    <button class="filter-btn active" data-filter="all" data-fr="Toutes les cartes" data-en="All maps">Toutes les cartes</button>
+    <button class="filter-btn" data-filter="thematique" data-fr="Cartographie Thématique" data-en="Thematic Mapping">Cartographie Thématique</button>
+    <button class="filter-btn" data-filter="analyse" data-fr="Analyses Spatiales" data-en="Spatial Analysis">Analyses Spatiales</button>
+    <button class="filter-btn" data-filter="urbain" data-fr="Urbanisme" data-en="Urban Planning">Urbanisme</button>
+    <button class="filter-btn" data-filter="environnement" data-fr="Environnement" data-en="Environment">Environnement</button>
+    <button class="filter-btn" data-filter="topographie" data-fr="Topographie" data-en="Topography">Topographie</button>
+    <button class="filter-btn" data-filter="humaine" data-fr="Géographie Humaine" data-en="Human Geography">Géographie Humaine</button>
+  </div>
+
+  <div class="map-grid" id="mapGrid"></div>
+
+  <div class="counter" id="counter"></div>
+
+  <div class="pagination">
+    <button class="page-btn" id="prevBtn" data-fr="← Précédent" data-en="← Previous">← Précédent</button>
+    <div class="page-info"><span id="curPage">1</span> / <span id="totPages">1</span></div>
+    <button class="page-btn" id="nextBtn" data-fr="Suivant →" data-en="Next →">Suivant →</button>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">×</button>
+    <img src="" alt="" class="modal-image" id="modalImage">
+    <div class="modal-info">
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <p class="modal-description" id="modalDesc"></p>
+      <div class="modal-details">
+        <div class="detail-item"><div class="detail-label" data-fr="Année" data-en="Year">Année</div><div class="detail-value" id="modalYear"></div></div>
+        <div class="detail-item"><div class="detail-label" data-fr="Localisation" data-en="Location">Localisation</div><div class="detail-value" id="modalLoc"></div></div>
+        <div class="detail-item"><div class="detail-label" data-fr="Échelle" data-en="Scale">Échelle</div><div class="detail-value" id="modalScale"></div></div>
+        <div class="detail-item"><div class="detail-label" data-fr="Catégorie" data-en="Category">Catégorie</div><div class="detail-value" id="modalCat"></div></div>
+      </div>
+      <div class="modal-tags" id="modalTags"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================= THEME TOGGLE (shared with main site) =================
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', ()=>{
+  const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('jtg-theme', next);
+});
+
+// ================= LANGUAGE TOGGLE =================
+let currentLang = localStorage.getItem('jtg-lang') || 'fr';
+const langBtns = document.querySelectorAll('.lang-pill button');
+function applyStaticLang(){
+  langBtns.forEach(b=> b.classList.toggle('active', b.dataset.lang === currentLang));
+  document.querySelectorAll('[data-fr]').forEach(el=>{
+    const val = el.dataset[currentLang];
+    if(val !== undefined) el.textContent = val;
+  });
+  document.documentElement.lang = currentLang;
+}
+langBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    currentLang = btn.dataset.lang;
+    localStorage.setItem('jtg-lang', currentLang);
+    applyStaticLang();
+    renderPage();
+  });
+});
+
+// ================= MAP DATA =================
+// t = {fr,en}
+const maps = [
+  { cats:['thematique','environnement'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Carte%20d'occupation%20du%20sol%20C%C3%B4te%20d'Ivoire.jpg?raw=true",
+    title:{fr:"Occupation du Sol - Côte d'Ivoire",en:"Land Use - Ivory Coast"},
+    desc:{fr:"Classification supervisée et analyse de l'évolution urbaine",en:"Supervised classification and urban evolution analysis"},
+    catLabel:{fr:"Thématique",en:"Thematic"}, year:"2024", loc:{fr:"Côte d'Ivoire",en:"Ivory Coast"}, scale:"1:25 000",
+    tags:[{fr:"Télédétection",en:"Remote Sensing"},{fr:"Classification",en:"Classification"},{fr:"ArcGIS",en:"ArcGIS"},{fr:"BNETD",en:"BNETD"}] },
+
+  { cats:['environnement','topographie'], img:"https://github.com/Jeant-Tim/Maps/blob/main/NDVI%20Jacqueville.png?raw=true",
+    title:{fr:"Analyse NDVI - Jacqueville",en:"NDVI Analysis – Jacqueville Area"},
+    desc:{fr:"Analyse spatiale de la couverture végétale et évaluation de la santé de la végétation.",en:"Spatial analysis of vegetation cover and assessment of vegetation health."},
+    catLabel:{fr:"Analyse",en:"Analysis"}, year:"2025", loc:{fr:"Jacqueville, CI",en:"Jacqueville, CI"}, scale:"1:6 000 000",
+    tags:[{fr:"Sentinel 1",en:"Sentinel 1"},{fr:"végétation",en:"vegetation"},{fr:"QGIS",en:"QGIS"},{fr:"Télédétection",en:"Remote Sensing"},{fr:"ArcGIS",en:"ArcGIS"}] },
+
+  { cats:['urbain','analyse'], img:"https://github.com/Jeant-Tim/Maps/blob/main/GARE%20GBAKA%20ABIDJAN.png?raw=true",
+    title:{fr:"Gares de Transport de Gbaka",en:"Gbaka Transport Stations"},
+    desc:{fr:"Analyse d'accessibilité des Gares de Gbaka à Abidjan",en:"Accessibility analysis of Gbaka stations in Abidjan"},
+    catLabel:{fr:"Urbanisme",en:"Urban Planning"}, year:"2023", loc:{fr:"Abidjan, CI",en:"Abidjan, CI"}, scale:"1:10 000",
+    tags:[{fr:"Transport",en:"Transport"},{fr:"Réseau",en:"Network"},{fr:"ArcNetwork",en:"ArcNetwork"}] },
+
+  { cats:['environnement','analyse'], img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop",
+    title:{fr:"Corridors Écologiques",en:"Ecological Corridors"},
+    desc:{fr:"Connectivité écologique et conservation de la biodiversité",en:"Ecological connectivity and biodiversity conservation"},
+    catLabel:{fr:"Environnement",en:"Environment"}, year:"2024", loc:{fr:"Région Sud, CI",en:"Southern Region, CI"}, scale:"1:100 000",
+    tags:[{fr:"Biodiversité",en:"Biodiversity"},{fr:"Connectivité",en:"Connectivity"},{fr:"R Statistical",en:"R Statistical"}] },
+
+  { cats:['thematique','urbain'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Quatier%20Biafra.png?raw=true",
+    title:{fr:"Zonage Fonctionnel Urbain",en:"Urban Functional Zoning"},
+    desc:{fr:"Situation du quartier de Biafra dans la commune de Treichville",en:"Location of Biafra neighborhood in Treichville municipality"},
+    catLabel:{fr:"Urbanisme",en:"Urban Planning"}, year:"2023", loc:{fr:"Biafra, Abidjan",en:"Biafra, Abidjan"}, scale:"1:5 000",
+    tags:[{fr:"Zonage",en:"Zoning"},{fr:"Urbanisme",en:"Urban Planning"},{fr:"Quartier",en:"Neighborhood"},{fr:"Localisation",en:"Location"}] },
+
+  { cats:['topographie','analyse'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Carte%20topographique%20d'Abidjan.png?raw=true",
+    title:{fr:"Modèle Numérique de Terrain",en:"Digital Terrain Model"},
+    desc:{fr:"Pentes et lignes d'écoulement d'eau",en:"Slopes and water flow lines"},
+    catLabel:{fr:"Topographie",en:"Topography"}, year:"2025", loc:{fr:"Abidjan, CI",en:"Abidjan, CI"}, scale:"1:150 000",
+    tags:[{fr:"MNT",en:"MNT"},{fr:"Topographie",en:"Topography"},{fr:"ArcGIS 3D",en:"ArcGIS 3D"}] },
+
+  { cats:['thematique','environnement'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Carte%20de%20localisation%20des%20for%C3%AAts%20class%C3%A9es.jpg?raw=true",
+    title:{fr:"Forêts classées - Côte d'Ivoire",en:"Classified Forests - Ivory Coast"},
+    desc:{fr:"Localisation des forêts classées de Scio et Goin-Débé",en:"Location of Scio and Goin-Débé classified forests"},
+    catLabel:{fr:"Environnement",en:"Environment"}, year:"2024", loc:{fr:"Côte d'Ivoire",en:"Ivory Coast"}, scale:"1:5 500",
+    tags:[{fr:"Cartographie",en:"Cartography"},{fr:"Forêts classées",en:"Classified Forests"},{fr:"ArcGIS",en:"ArcGIS"},{fr:"BNETD",en:"BNETD"}] },
+
+  { cats:['humaine','thematique'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Bas-Sassandra.png?raw=true",
+    title:{fr:"Densité de population - Région du Bas-Sassandra",en:"Population Density - Bas-Sassandra Region"},
+    desc:{fr:"Densité de population dans la région du Bas-Sassandra",en:"Population density in the Bas-Sassandra region"},
+    catLabel:{fr:"Démographie",en:"Demography"}, year:"2025", loc:{fr:"Région du Bas-Sassandra",en:"Bas-Sassandra Region"}, scale:"1:8 000 000",
+    tags:[{fr:"Cartographie",en:"Cartography"},{fr:"Densité de population",en:"Population Density"},{fr:"ArcGIS",en:"ArcGIS"},{fr:"ANStat",en:"ANStat"},{fr:"RGPH 2021",en:"RGPH 2021"}] },
+
+  { cats:['environnement','analyse'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Carte%20de%20risque%20dans%20la%20commune%20de%20Cocody.jpg?raw=true",
+    title:{fr:"Carte de risque - Cocody, Abidjan",en:"Risk Map - Cocody, Abidjan"},
+    desc:{fr:"Niveaux de vulnérabilité des bâtiments dans les bassins versants de Cocody - Abidjan",en:"Building vulnerability levels in Cocody watersheds - Abidjan"},
+    catLabel:{fr:"Risque",en:"Risk"}, year:"2023", loc:{fr:"Cocody",en:"Cocody"}, scale:"1:25 000",
+    tags:[{fr:"Cartographie",en:"Cartography"},{fr:"Carte de risque",en:"Risk Map"},{fr:"ArcGIS",en:"ArcGIS"},{fr:"Niveaux de vulnérabilité",en:"Vulnerability Levels"},{fr:"Versant de Cocody",en:"Cocody Watershed"}] },
+
+  { cats:['environnement','analyse','topographie'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Carte%20d'occupation%20du%20sol%20d'Abidjan.png?raw=true",
+    title:{fr:"Carte d'occupation du sol - Abidjan",en:"Land Use Map - Abidjan"},
+    desc:{fr:"Analyse spatiale de l'occupation du sol du grand Abidjan",en:"Spatial analysis of land use in Greater Abidjan"},
+    catLabel:{fr:"Occupation du sol",en:"Land Use"}, year:"2024", loc:{fr:"Abidjan",en:"Abidjan"}, scale:"1:212 000",
+    tags:[{fr:"Cartographie",en:"Cartography"},{fr:"Occupation du sol",en:"Land Use"},{fr:"ArcGIS",en:"ArcGIS"},{fr:"Analyse spatiale",en:"Spatial Analysis"},{fr:"Land Cover",en:"Land Cover"},{fr:"Sentinel 2",en:"Sentinel 2"}] },
+
+  { cats:['environnement','analyse','topographie'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Cartographie%20drone.png?raw=true",
+    title:{fr:"Orthophotographie aérienne - Abatta, Bingerville",en:"Aerial Orthophotography - Abatta, Bingerville"},
+    desc:{fr:"Restitution photogrammétrique d'une zone urbaine dense à Abatta à partir d'un vol drone. L'orthophotographie haute résolution met en évidence les structures bâties, les axes routiers et les zones d'aménagement.",en:"Photogrammetric restitution of a dense urban area in Abatta from a drone flight. High-resolution orthophotography highlights built structures, road axes and development areas."},
+    catLabel:{fr:"Photogrammétrie drone",en:"Drone Photogrammetry"}, year:"2024", loc:{fr:"Abatta, Bingerville",en:"Abatta, Bingerville"}, scale:"1:1 800",
+    tags:[{fr:"Drone",en:"Drone"},{fr:"Orthophoto",en:"Orthophoto"},{fr:"Agisoft Metashape Pro",en:"Agisoft Metashape Pro"},{fr:"ArcGIS",en:"ArcGIS"},{fr:"Photogrammétrie",en:"Photogrammetry"}] },
+
+  { cats:['humaine','thematique'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Carte%20administrative%20de%20la%20Bagou%C3%A9.png?raw=true",
+    title:{fr:"Carte administrative – Région de la Bagoué",en:"Administrative Map – Bagoué Region"},
+    desc:{fr:"Représentation des limites administratives de la région de la Bagoué, incluant les départements, sous-préfectures et principales localités.",en:"Representation of administrative boundaries of the Bagoué region, including departments, sub-prefectures and main localities."},
+    catLabel:{fr:"Administratif",en:"Administrative"}, year:"2023", loc:{fr:"Région de la Bagoué",en:"Bagoué Region"}, scale:"1:5 500 000",
+    tags:[{fr:"Cartographie",en:"Cartography"},{fr:"Administrative",en:"Administrative"},{fr:"ArcGIS",en:"ArcGIS"},{fr:"Départements",en:"Departments"},{fr:"Géomatique",en:"Geomatics"}] },
+
+  { cats:['thematique','urbain'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Carte%20de%20Jacqueville.jpg?raw=true",
+    title:{fr:"Carte urbaine – Jacqueville",en:"Urban Map – Jacqueville"},
+    desc:{fr:"Représentation cartographique complète de Jacqueville incluant villes, villages, routes, lagune, pipeline et infrastructures.",en:"Comprehensive cartographic representation of Jacqueville including towns, villages, roads, lagoon, pipeline and infrastructures."},
+    catLabel:{fr:"Cartographie urbaine",en:"Urban Cartography"}, year:"2023", loc:{fr:"Jacqueville, Côte d'Ivoire",en:"Jacqueville, Ivory Coast"}, scale:"1:25 000",
+    tags:[{fr:"Cartographie",en:"Cartography"},{fr:"Urbain",en:"Urban"},{fr:"ArcGIS",en:"ArcGIS"},{fr:"Infrastructures",en:"Infrastructures"},{fr:"Réseaux",en:"Networks"},{fr:"Pipeline",en:"Pipeline"}] },
+
+  { cats:['environnement','topographie'], img:"https://github.com/Jeant-Tim/Maps/blob/main/NDVI%20Beriaboukro.png?raw=true",
+    title:{fr:"Analyse NDVI – Bériaboukro",en:"NDVI Analysis – Bériaboukro Area"},
+    desc:{fr:"Cartographie de la couverture végétale dans le périmètre de Bériaboukro par analyse NDVI pour l'évaluation de la santé et de la densité de la végétation.",en:"Vegetation cover mapping in the Bériaboukro area using NDVI analysis for assessing vegetation health and density."},
+    catLabel:{fr:"Télédétection",en:"Remote Sensing"}, year:"2023", loc:{fr:"Bériaboukro, Côte d'Ivoire",en:"Bériaboukro, Ivory Coast"}, scale:"1:50 000",
+    tags:[{fr:"Télédétection",en:"Remote Sensing"},{fr:"NDVI",en:"NDVI"},{fr:"QGIS",en:"QGIS"},{fr:"Végétation",en:"Vegetation"},{fr:"Analyse spatiale",en:"Spatial Analysis"},{fr:"Biomasse",en:"Biomass"}] },
+
+  { cats:['thematique','urbain'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Loaclisation%20Bingerville.png?raw=true",
+    title:{fr:"Carte de localisation - Bingerville",en:"Location Map - Bingerville"},
+    desc:{fr:"Localisation géographique de Bingerville dans le district autonome d'Abidjan, montrant son positionnement stratégique et son réseau routier.",en:"Geographical location of Bingerville in the Autonomous District of Abidjan, showing its strategic positioning and road network."},
+    catLabel:{fr:"Localisation",en:"Location"}, year:"2024", loc:{fr:"Bingerville, Côte d'Ivoire",en:"Bingerville, Ivory Coast"}, scale:"1:25 000",
+    tags:[{fr:"Cartographie",en:"Cartography"},{fr:"Localisation",en:"Location"},{fr:"ArcGIS",en:"ArcGIS"},{fr:"Réseau routier",en:"Road Network"},{fr:"District d'Abidjan",en:"Abidjan District"},{fr:"Géoréférencement",en:"Georeferencing"}] },
+
+  { cats:['environnement','topographie'], img:"https://github.com/Jeant-Tim/Maps/blob/main/NDRE%20Jacqueville.png?raw=true",
+    title:{fr:"Analyse NDRE - Jacqueville",en:"NDRE Analysis – Jacqueville Area"},
+    desc:{fr:"Cartographie de la couverture végétale dans le périmètre de Jacqueville par analyse NDRE pour l'évaluation de la santé et de la densité de la végétation.",en:"Vegetation cover mapping in the Jacqueville area using NDRE analysis for assessing vegetation health and density."},
+    catLabel:{fr:"Télédétection",en:"Remote Sensing"}, year:"2024", loc:{fr:"Jacqueville, Côte d'Ivoire",en:"Jacqueville, Ivory Coast"}, scale:"1:85 000",
+    tags:[{fr:"Télédétection",en:"Remote Sensing"},{fr:"NDRE",en:"NDRE"},{fr:"QGIS",en:"QGIS"},{fr:"Végétation",en:"Vegetation"},{fr:"Analyse spatiale",en:"Spatial Analysis"},{fr:"Biomasse",en:"Biomass"}] },
+
+  { cats:['topographie','analyse'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Carte%20de%20relief%20de%20Jacqueville.png?raw=true",
+    title:{fr:"Modèle Numérique de Terrain",en:"Digital Terrain Model"},
+    desc:{fr:"Relief et plan d'eau",en:"Relief and body of water"},
+    catLabel:{fr:"Topographie",en:"Topography"}, year:"2025", loc:{fr:"Jacqueville, CI",en:"Jacqueville, CI"}, scale:"1:200 000",
+    tags:[{fr:"MNT",en:"MNT"},{fr:"Topographie",en:"Topography"},{fr:"ArcGIS 3D",en:"ArcGIS 3D"}] },
+
+  { cats:['thematique','environnement'], img:"https://github.com/Jeant-Tim/Maps/blob/main/Carte%20d'occupation%20du%20sol%20de%20la%20C%C3%B4te%20d'Ivoire.png?raw=true",
+    title:{fr:"Occupation du Sol - Côte d'Ivoire",en:"Land Use - Ivory Coast"},
+    desc:{fr:"Classification supervisée et analyse de l'évolution urbaine",en:"Supervised classification and urban evolution analysis"},
+    catLabel:{fr:"Thématique",en:"Thematic"}, year:"2024", loc:{fr:"Côte d'Ivoire",en:"Ivory Coast"}, scale:"1:880 000",
+    tags:[{fr:"Télédétection",en:"Remote Sensing"},{fr:"Classification",en:"Classification"},{fr:"ArcGIS",en:"ArcGIS"},{fr:"ESRI",en:"ESRI"},{fr:"Land Cover",en:"Land Cover"}] },
+];
+
+// ================= STATE =================
+const PER_PAGE = 6;
+let currentFilter = 'all';
+let currentPage = 1;
+
+const grid = document.getElementById('mapGrid');
+const counterEl = document.getElementById('counter');
+const curPageEl = document.getElementById('curPage');
+const totPagesEl = document.getElementById('totPages');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+function getFiltered(){
+  return currentFilter === 'all' ? maps : maps.filter(m => m.cats.includes(currentFilter));
+}
+
+function cardHTML(m){
+  const tagsHTML = m.tags.map(t=>`<span>${t[currentLang]}</span>`).join('');
+  return `
+    <div class="map-card">
+      <div class="map-cover">
+        <img src="${m.img}" alt="${m.title[currentLang]}" loading="lazy">
+        <div class="map-overlay">
+          <span class="map-cat-pill">${m.catLabel[currentLang]}</span>
+          <div class="map-overlay-title">${m.title[currentLang]}</div>
+          <div class="map-overlay-desc">${m.desc[currentLang]}</div>
+        </div>
+      </div>
+      <div class="map-body">
+        <h3>${m.title[currentLang]}</h3>
+        <div class="map-meta">
+          <span>📅 ${m.year}</span>
+          <span>📍 ${m.loc[currentLang]}</span>
+          <span>🎯 ${m.scale}</span>
+        </div>
+        <div class="map-tags">${tagsHTML}</div>
+      </div>
+    </div>`;
+}
+
+function renderPage(){
+  const filtered = getFiltered();
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+  if(currentPage > totalPages) currentPage = totalPages;
+  const start = (currentPage - 1) * PER_PAGE;
+  const pageItems = filtered.slice(start, start + PER_PAGE);
+
+  grid.innerHTML = pageItems.map(cardHTML).join('');
+
+  // wire click -> modal
+  Array.from(grid.children).forEach((el, i)=>{
+    el.addEventListener('click', ()=> openModal(pageItems[i]));
+    requestAnimationFrame(()=> setTimeout(()=> el.classList.add('visible'), i * 60));
+  });
+
+  const visibleLabel = currentLang === 'fr' ? 'cartes visibles sur' : 'maps visible out of';
+  counterEl.innerHTML = `<strong>${pageItems.length}</strong> ${visibleLabel} <strong>${filtered.length}</strong>`;
+  curPageEl.textContent = currentPage;
+  totPagesEl.textContent = totalPages;
+  prevBtn.disabled = currentPage <= 1;
+  nextBtn.disabled = currentPage >= totalPages;
+}
+
+document.getElementById('filters').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.filter-btn');
+  if(!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = btn.dataset.filter;
+  currentPage = 1;
+  renderPage();
+});
+
+prevBtn.addEventListener('click', ()=>{ if(currentPage>1){ currentPage--; renderPage(); } });
+nextBtn.addEventListener('click', ()=>{
+  const totalPages = Math.max(1, Math.ceil(getFiltered().length / PER_PAGE));
+  if(currentPage < totalPages){ currentPage++; renderPage(); }
+});
+
+// ================= MODAL =================
+const modal = document.getElementById('modal');
+const modalImage = document.getElementById('modalImage');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalYear = document.getElementById('modalYear');
+const modalLoc = document.getElementById('modalLoc');
+const modalScale = document.getElementById('modalScale');
+const modalCat = document.getElementById('modalCat');
+const modalTags = document.getElementById('modalTags');
+let scrollPos = 0;
+
+function openModal(m){
+  scrollPos = window.pageYOffset || document.documentElement.scrollTop;
+  modalImage.src = m.img;
+  modalImage.alt = m.title[currentLang];
+  modalTitle.textContent = m.title[currentLang];
+  modalDesc.textContent = m.desc[currentLang];
+  modalYear.textContent = m.year;
+  modalLoc.textContent = m.loc[currentLang];
+  modalScale.textContent = m.scale;
+  modalCat.textContent = m.catLabel[currentLang];
+  modalTags.innerHTML = m.tags.map(t=>`<span>${t[currentLang]}</span>`).join('');
+  modal.style.display = 'flex';
+  document.body.classList.add('modal-open');
+  requestAnimationFrame(()=> modal.classList.add('active'));
+}
+function closeModal(){
+  modal.classList.remove('active');
+  setTimeout(()=>{
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+    window.scrollTo(0, scrollPos);
+  }, 300);
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+
+// ================= INIT =================
+applyStaticLang();
+renderPage();
+
+// reveal on load for header/filters
+document.querySelectorAll('.reveal').forEach(el=> el.classList.add('in'));
+</script>
+</body>
+</html>
