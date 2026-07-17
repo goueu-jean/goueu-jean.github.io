@@ -110,7 +110,7 @@ h1,h2,h3,h4{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
 .nav-toggle{ display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; }
 .nav-toggle span{ width:22px; height:2px; background:var(--text); }
 
-/* ---------- Lang toggle (new) ---------- */
+/* ---------- Lang toggle ---------- */
 .lang-toggle{
   width:40px; height:40px; border-radius:50%; border:1px solid var(--border); background:var(--bg-elev);
   color:var(--text); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:700;
@@ -125,11 +125,11 @@ h1,h2,h3,h4{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
     left:0; 
     right:0; 
     bottom:0; 
-    height:calc(100vh - 72px); /* Hauteur moins la navbar */
+    height:calc(100vh - 72px);
     background:var(--bg); 
     flex-direction:column; 
     align-items:flex-start; 
-    justify-content:flex-start; /* Aligne en haut */
+    justify-content:flex-start;
     padding:30px 24px; 
     transform:translateX(100%); 
     transition:transform .3s ease; 
@@ -330,7 +330,7 @@ h1,h2,h3,h4{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
     <div class="hero-photo-wrap reveal">
       <div class="hero-photo"><img src="https://github.com/goueu-jean/goueu-jean.github.io/blob/main/Photos/Jean.jpg?raw=true" alt="Jean Timothé Goueu"></div>
       <div class="float-badge badge-1"><div class="ico"><i class="fas fa-map"></i></div><div class="lbl"><small data-key="badge1_label">Outil principal</small><strong>ArcGIS / QGIS</strong></div></div>
-      <div class="float-badge badge-2"><div class="ico" style="background:var(--accent-2);"><i class="fas fa-check"></i></div><div class="lbl"><small data-key="badge2_label">Projets livrés</small><strong>7+ géospatiaux</strong></div></div>
+      <div class="float-badge badge-2"><div class="ico" style="background:var(--accent-2);"><i class="fas fa-check"></i></div><div class="lbl"><small data-key="badge2_label">Projets livrés</small><strong id="projectsCountDisplay">7+ géospatiaux</strong></div></div>
     </div>
   </div>
 </section>
@@ -348,13 +348,13 @@ h1,h2,h3,h4{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
         <div class="service-ico"><i class="fas fa-earth-africa"></i></div>
         <h3 data-key="s1_title">Géoportails & WebSIG</h3>
         <p data-key="s1_desc">Portails cartographiques interactifs pour la visualisation et l'analyse territoriale.</p>
-        <div class="service-tags"><span>ArcGIS Online</span><span>Leaflet</span></div>
+        <div class="service-tags"><span>ArcGIS Online</span><span>Leaflet</span><span>Experience Builder</span></div>
       </div>
       <div class="service-card">
         <div class="service-ico"><i class="fas fa-map-location-dot"></i></div>
         <h3 data-key="s2_title">Cartographie thématique</h3>
         <p data-key="s2_desc">Cartes claires et précises pour rapports, publications et prises de décision.</p>
-        <div class="service-tags"><span>QGIS</span><span>ArcGIS</span></div>
+        <div class="service-tags"><span>QGIS</span><span>ArcGIS</span><span>Global Mapper</span><span>Google Earth Pro</span></div>
       </div>
       <div class="service-card">
         <div class="service-ico"><i class="fas fa-clipboard-list"></i></div>
@@ -366,7 +366,7 @@ h1,h2,h3,h4{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
         <div class="service-ico"><i class="fas fa-helicopter"></i></div>
         <h3 data-key="s4_title">Drone & Photogrammétrie</h3>
         <p data-key="s4_desc">Acquisition et traitement d'images aériennes pour modélisation 3D haute résolution.</p>
-        <div class="service-tags"><span>PIX4D</span><span>Metashape</span></div>
+        <div class="service-tags"><span>PIX4D</span><span>Metashape</span><span>Dronedeploy</span></div>
       </div>
       <div class="service-card">
         <div class="service-ico"><i class="fas fa-database"></i></div>
@@ -378,7 +378,7 @@ h1,h2,h3,h4{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
         <div class="service-ico"><i class="fas fa-satellite"></i></div>
         <h3 data-key="s6_title">Télédétection & Analyse</h3>
         <p data-key="s6_desc">Transformation d'images satellites en indicateurs actionnables (NDVI, occupation du sol...).</p>
-        <div class="service-tags"><span>SNAP</span><span>ENVI</span></div>
+        <div class="service-tags"><span>SNAP</span><span>ENVI</span><span>Google Earth Engin</span></div>
       </div>
     </div>
   </div>
@@ -391,6 +391,17 @@ h1,h2,h3,h4{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
       <div class="eyebrow" data-key="exp_eyebrow">Parcours</div>
       <h2 class="sec-title" data-key="exp_title">Expérience & Formation</h2>
       <p class="sec-sub" data-key="exp_sub">Mon parcours professionnel, académique et associatif.</p>
+      <!-- Badge expérience avec calcul automatique -->
+      <div style="margin-top: 16px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap;" id="experienceBadge">
+        <span style="background: var(--accent); color: #0A0A0F; padding: 6px 18px; border-radius: 999px; font-family: var(--mono); font-size: .85rem; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+          <i class="fas fa-briefcase"></i> 
+          <span id="expYearsDisplay">3 ans d'expérience professionnelle</span>
+        </span>
+        <span style="color: var(--text-mute); font-size: .85rem; font-family: var(--mono); display: inline-flex; align-items: center; gap: 6px;">
+          <i class="fas fa-calendar-alt"></i> 
+          <span data-key="exp_start">Depuis juillet 2023</span>
+        </span>
+      </div>
     </div>
 
     <div class="filters reveal" id="expFilters">
@@ -402,110 +413,140 @@ h1,h2,h3,h4{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
 
     <div class="exp-list reveal" id="expList">
 
+      <!-- EXPÉRIENCE 1 : Projet Géoportail de Jacqueville -->
       <div class="exp-item" data-cat="pro">
         <div class="exp-logo" style="background:var(--accent);">IRD</div>
-        <div class="exp-date" data-key="exp1_date">Depuis 10/2024</div>
+        <div class="exp-date" data-key="exp1_date">2025 – Aujourd'hui</div>
         <div class="exp-body">
-          <h3 data-key="exp1_title">Ingénieur Géomatique</h3>
+          <h3 data-key="exp1_title">Ingénieur – Projet Géoportail de Jacqueville</h3>
           <span class="org" data-key="exp1_org">Institut de Recherche pour le Développement, Abidjan</span>
-          <span class="exp-type" data-key="exp1_type">Poste actuel</span>
-          <p class="exp-desc" data-key="exp1_desc">Responsable géomatique pour le IC-DKF Lab, conception d'une plateforme SIG pour le programme Eco2Dev et développement du géoportail de Jacqueville.</p>
+          <span class="exp-type" data-key="exp1_type">Projet</span>
+          <p class="exp-desc" data-key="exp1_desc">Conception et développement d'un géoportail interactif pour la commune de Jacqueville, intégration de données multi-sources et formation des équipes locales.</p>
+          <div class="exp-tags"><span>ArcGIS Online</span><span>Experience Builder</span><span>WebSIG</span></div>
+        </div>
+      </div>
+
+      <!-- EXPÉRIENCE 2 : Appui SIG – Enquête socio-démographique urbaine -->
+      <div class="exp-item" data-cat="pro">
+        <div class="exp-logo" style="background:var(--accent);">UJLoG</div>
+        <div class="exp-date" data-key="exp2_date">Juil. 2025 – Fév. 2026</div>
+        <div class="exp-body">
+          <h3 data-key="exp2_title">Appui SIG – Enquête socio-démographique urbaine</h3>
+          <span class="org" data-key="exp2_org">Université Jean Lorougnon Guédé, Daloa</span>
+          <span class="exp-type" data-key="exp2_type">Mission</span>
+          <p class="exp-desc" data-key="exp2_desc">Conception du questionnaire KoboCollect, structuration des données dans un SIG, analyse spatiale et production de cartes thématiques.</p>
+          <div class="exp-tags"><span>KoboCollect</span><span>ArcGIS</span><span>QGIS</span></div>
+        </div>
+      </div>
+
+      <!-- EXPÉRIENCE 3 : Ingénieur Géomatique -->
+      <div class="exp-item" data-cat="pro">
+        <div class="exp-logo" style="background:var(--accent);">IRD</div>
+        <div class="exp-date" data-key="exp3_date">Depuis 10/2024</div>
+        <div class="exp-body">
+          <h3 data-key="exp3_title">Ingénieur Géomatique</h3>
+          <span class="org" data-key="exp3_org">Institut de Recherche pour le Développement, Abidjan</span>
+          <span class="exp-type" data-key="exp3_type">Poste actuel</span>
+          <p class="exp-desc" data-key="exp3_desc">Responsable géomatique pour le IC-DKF Lab, conception d'une plateforme SIG pour le programme Eco2Dev et développement du géoportail de Jacqueville.</p>
           <div class="exp-tags"><span>ArcGIS</span><span>QGIS</span><span>PostGIS</span><span>Python</span></div>
         </div>
       </div>
 
+      <!-- EXPÉRIENCE 4 : Assistant Géomatique et Enquêteur -->
       <div class="exp-item" data-cat="pro">
         <div class="exp-logo" style="background:var(--accent);">IRD</div>
-        <div class="exp-date" data-key="exp2_date">07/2023—09/2024</div>
+        <div class="exp-date" data-key="exp4_date">07/2023—09/2024</div>
         <div class="exp-body">
-          <h3 data-key="exp2_title">Assistant Géomatique et Enquêteur</h3>
-          <span class="org" data-key="exp2_org">Institut de Recherche pour le Développement, Abidjan</span>
-          <span class="exp-type" data-key="exp2_type">Poste rémunéré</span>
-          <p class="exp-desc" data-key="exp2_desc">Création de bases de données SIG, photogrammétrie drone, développement WebSIG et appui au projet ECVPSurvey.</p>
+          <h3 data-key="exp4_title">Assistant Géomatique et Enquêteur</h3>
+          <span class="org" data-key="exp4_org">Institut de Recherche pour le Développement, Abidjan</span>
+          <span class="exp-type" data-key="exp4_type">Poste rémunéré</span>
+          <p class="exp-desc" data-key="exp4_desc">Création de bases de données SIG, photogrammétrie drone, développement WebSIG et appui au projet ECVPSurvey.</p>
           <div class="exp-tags"><span>KoboCollect</span><span>Metashape</span><span>PIX4D</span></div>
         </div>
       </div>
 
+      <!-- FORMATIONS -->
       <div class="exp-item" data-cat="formation">
         <div class="exp-logo" style="background:var(--accent-3);">IUA</div>
-        <div class="exp-date" data-key="exp3_date">2022—2024</div>
+        <div class="exp-date" data-key="exp5_date">2022—2024</div>
         <div class="exp-body">
-          <h3 data-key="exp3_title">Master Géomatique & Ingénierie de l'Environnement</h3>
-          <span class="org" data-key="exp3_org">Institut Universitaire d'Abidjan</span>
-          <span class="exp-type" data-key="exp3_type">Formation</span>
-          <p class="exp-desc" data-key="exp3_desc">Analyse spatiale, bases de données géographiques, télédétection, WebSIG.</p>
+          <h3 data-key="exp5_title">Master Géomatique & Ingénierie de l'Environnement</h3>
+          <span class="org" data-key="exp5_org">Institut Universitaire d'Abidjan</span>
+          <span class="exp-type" data-key="exp5_type">Formation</span>
+          <p class="exp-desc" data-key="exp5_desc">Analyse spatiale, bases de données géographiques, télédétection, WebSIG.</p>
           <div class="exp-tags"><span>SIG</span><span>Télédétection</span></div>
         </div>
       </div>
 
       <div class="exp-item" data-cat="formation">
         <div class="exp-logo" style="background:var(--accent-3);">IGT</div>
-        <div class="exp-date" data-key="exp4_date">2018—2022</div>
+        <div class="exp-date" data-key="exp6_date">2018—2022</div>
         <div class="exp-body">
-          <h3 data-key="exp4_title">Master Géographie, aménagement du territoire</h3>
-          <span class="org" data-key="exp4_org">Université Félix Houphouët-Boigny, Abidjan</span>
-          <span class="exp-type" data-key="exp4_type">Formation</span>
-          <p class="exp-desc" data-key="exp4_desc">Cartographie appliquée, diagnostic territorial. Mémoire sur l'aménagement du quartier d'Abobo-Té.</p>
+          <h3 data-key="exp6_title">Master Géographie, aménagement du territoire</h3>
+          <span class="org" data-key="exp6_org">Université Félix Houphouët-Boigny, Abidjan</span>
+          <span class="exp-type" data-key="exp6_type">Formation</span>
+          <p class="exp-desc" data-key="exp6_desc">Cartographie appliquée, diagnostic territorial. Mémoire sur l'aménagement du quartier d'Abobo-Té.</p>
           <div class="exp-tags"><span>Aménagement</span><span>Cartographie</span></div>
         </div>
       </div>
 
       <div class="exp-item" data-cat="formation">
         <div class="exp-logo" style="background:var(--accent-3);">IGT</div>
-        <div class="exp-date" data-key="exp5_date">2018—2022</div>
+        <div class="exp-date" data-key="exp7_date">2018—2022</div>
         <div class="exp-body">
-          <h3 data-key="exp5_title">Licence en Géographie</h3>
-          <span class="org" data-key="exp5_org">Université Félix Houphouët-Boigny, Abidjan</span>
-          <span class="exp-type" data-key="exp5_type">Formation</span>
-          <p class="exp-desc" data-key="exp5_desc">Cartographie appliquée, SIG, diagnostic territorial.</p>
+          <h3 data-key="exp7_title">Licence en Géographie</h3>
+          <span class="org" data-key="exp7_org">Université Félix Houphouët-Boigny, Abidjan</span>
+          <span class="exp-type" data-key="exp7_type">Formation</span>
+          <p class="exp-desc" data-key="exp7_desc">Cartographie appliquée, SIG, diagnostic territorial.</p>
           <div class="exp-tags"><span>Géographie</span></div>
         </div>
       </div>
 
+      <!-- CERTIFICATIONS -->
       <div class="exp-item" data-cat="certif">
         <div class="exp-logo" style="background:var(--accent-2);"><i class="fas fa-code"></i></div>
-        <div class="exp-date" data-key="exp6_date">Certification</div>
+        <div class="exp-date" data-key="exp8_date">Certification</div>
         <div class="exp-body">
-          <h3 data-key="exp6_title">Programmation Python Essentials</h3>
-          <span class="org" data-key="exp6_org">GOMYCODE</span>
-          <span class="exp-type" data-key="exp6_type">Certification</span>
-          <p class="exp-desc" data-key="exp6_desc">Fondamentaux de la programmation Python appliqués au traitement de données.</p>
+          <h3 data-key="exp8_title">Programmation Python Essentials</h3>
+          <span class="org" data-key="exp8_org">GOMYCODE</span>
+          <span class="exp-type" data-key="exp8_type">Certification</span>
+          <p class="exp-desc" data-key="exp8_desc">Fondamentaux de la programmation Python appliqués au traitement de données.</p>
           <div class="exp-tags"><span>Python</span></div>
         </div>
       </div>
 
       <div class="exp-item" data-cat="certif">
         <div class="exp-logo" style="background:var(--accent-2);"><i class="fas fa-helicopter"></i></div>
-        <div class="exp-date" data-key="exp7_date">Certification</div>
+        <div class="exp-date" data-key="exp9_date">Certification</div>
         <div class="exp-body">
-          <h3 data-key="exp7_title">Formation Drone Mapping</h3>
-          <span class="org" data-key="exp7_org">Agence de Formation Professionnelle</span>
-          <span class="exp-type" data-key="exp7_type">Certification</span>
-          <p class="exp-desc" data-key="exp7_desc">Pilotage de drone et traitement photogrammétrique pour la cartographie.</p>
+          <h3 data-key="exp9_title">Formation Drone Mapping</h3>
+          <span class="org" data-key="exp9_org">Agence de Formation Professionnelle</span>
+          <span class="exp-type" data-key="exp9_type">Certification</span>
+          <p class="exp-desc" data-key="exp9_desc">Pilotage de drone et traitement photogrammétrique pour la cartographie.</p>
           <div class="exp-tags"><span>Drone</span><span>Photogrammétrie</span></div>
         </div>
       </div>
 
       <div class="exp-item" data-cat="certif">
         <div class="exp-logo" style="background:var(--accent-2);"><i class="fas fa-trophy"></i></div>
-        <div class="exp-date" data-key="exp8_date">Certification</div>
+        <div class="exp-date" data-key="exp10_date">Certification</div>
         <div class="exp-body">
-          <h3 data-key="exp8_title">Hackathon des Startups</h3>
-          <span class="org" data-key="exp8_org">EO for Wetlands and Floods Monitoring</span>
-          <span class="exp-type" data-key="exp8_type">Certification</span>
-          <p class="exp-desc" data-key="exp8_desc">Participation à un hackathon sur l'observation de la Terre appliquée aux zones humides et inondations.</p>
+          <h3 data-key="exp10_title">Hackathon des Startups</h3>
+          <span class="org" data-key="exp10_org">EO for Wetlands and Floods Monitoring</span>
+          <span class="exp-type" data-key="exp10_type">Certification</span>
+          <p class="exp-desc" data-key="exp10_desc">Participation à un hackathon sur l'observation de la Terre appliquée aux zones humides et inondations.</p>
           <div class="exp-tags"><span>Earth Observation</span></div>
         </div>
       </div>
 
       <div class="exp-item" data-cat="certif">
         <div class="exp-logo" style="background:var(--accent-2);"><i class="fas fa-flask"></i></div>
-        <div class="exp-date" data-key="exp9_date">Certification</div>
+        <div class="exp-date" data-key="exp11_date">Certification</div>
         <div class="exp-body">
-          <h3 data-key="exp9_title">Attestation de Recherche Expérimentale</h3>
-          <span class="org" data-key="exp9_org">IRD</span>
-          <span class="exp-type" data-key="exp9_type">Certification</span>
-          <p class="exp-desc" data-key="exp9_desc">Reconnaissance des travaux de recherche appliquée menés au sein de l'IRD.</p>
+          <h3 data-key="exp11_title">Attestation de Recherche Expérimentale</h3>
+          <span class="org" data-key="exp11_org">IRD</span>
+          <span class="exp-type" data-key="exp11_type">Certification</span>
+          <p class="exp-desc" data-key="exp11_desc">Reconnaissance des travaux de recherche appliquée menés au sein de l'IRD.</p>
           <div class="exp-tags"><span>Recherche</span></div>
         </div>
       </div>
@@ -520,7 +561,7 @@ h1,h2,h3,h4{ font-family:var(--disp); font-weight:700; letter-spacing:-0.02em; }
     <div class="sec-header reveal">
       <div class="eyebrow" data-key="projects_eyebrow">Portfolio</div>
       <h2 class="sec-title" data-key="projects_title">Projets</h2>
-      <p class="sec-sub" data-key="projects_sub">Sept projets géospatiaux réels, menés pour l'IRD et des programmes de recherche en Côte d'Ivoire.</p>
+      <p class="sec-sub" data-key="projects_sub" id="projectsSub">Sept projets géospatiaux réels, menés pour l'IRD et des programmes de recherche en Côte d'Ivoire.</p>
     </div>
 
     <div class="filters reveal" id="projFilters">
@@ -701,58 +742,69 @@ const translations = {
     exp_eyebrow: "Parcours",
     exp_title: "Expérience & Formation",
     exp_sub: "Mon parcours professionnel, académique et associatif.",
+    exp_start: "Depuis juillet 2023",
     filter_all: "Tout",
     filter_pro: "Professionnel",
     filter_formation: "Formation",
     filter_certif: "Certifications",
-    exp1_date: "Depuis 10/2024",
-    exp1_title: "Ingénieur Géomatique",
+    exp1_date: "2025 – Aujourd'hui",
+    exp1_title: "Ingénieur – Projet Géoportail de Jacqueville",
     exp1_org: "Institut de Recherche pour le Développement, Abidjan",
-    exp1_type: "Poste actuel",
-    exp1_desc: "Responsable géomatique pour le IC-DKF Lab, conception d'une plateforme SIG pour le programme Eco2Dev et développement du géoportail de Jacqueville.",
-    exp2_date: "07/2023—09/2024",
-    exp2_title: "Assistant Géomatique et Enquêteur",
-    exp2_org: "Institut de Recherche pour le Développement, Abidjan",
-    exp2_type: "Poste rémunéré",
-    exp2_desc: "Création de bases de données SIG, photogrammétrie drone, développement WebSIG et appui au projet ECVPSurvey.",
-    exp3_date: "2022—2024",
-    exp3_title: "Master Géomatique & Ingénierie de l'Environnement",
-    exp3_org: "Institut Universitaire d'Abidjan",
-    exp3_type: "Formation",
-    exp3_desc: "Analyse spatiale, bases de données géographiques, télédétection, WebSIG.",
-    exp4_date: "2018—2022",
-    exp4_title: "Master Géographie, aménagement du territoire",
-    exp4_org: "Université Félix Houphouët-Boigny, Abidjan",
-    exp4_type: "Formation",
-    exp4_desc: "Cartographie appliquée, diagnostic territorial. Mémoire sur l'aménagement du quartier d'Abobo-Té.",
-    exp5_date: "2018—2022",
-    exp5_title: "Licence en Géographie",
-    exp5_org: "Université Félix Houphouët-Boigny, Abidjan",
+    exp1_type: "Projet",
+    exp1_desc: "Conception et développement d'un géoportail interactif pour la commune de Jacqueville, intégration de données multi-sources et formation des équipes locales.",
+    exp2_date: "Juil. 2025 – Fév. 2026",
+    exp2_title: "Appui SIG – Enquête socio-démographique urbaine",
+    exp2_org: "Université Jean Lorougnon Guédé, Daloa",
+    exp2_type: "Mission",
+    exp2_desc: "Conception du questionnaire KoboCollect, structuration des données dans un SIG, analyse spatiale et production de cartes thématiques.",
+    exp3_date: "Depuis 10/2024",
+    exp3_title: "Ingénieur Géomatique",
+    exp3_org: "Institut de Recherche pour le Développement, Abidjan",
+    exp3_type: "Poste actuel",
+    exp3_desc: "Responsable géomatique pour le IC-DKF Lab, conception d'une plateforme SIG pour le programme Eco2Dev et développement du géoportail de Jacqueville.",
+    exp4_date: "07/2023—09/2024",
+    exp4_title: "Assistant Géomatique et Enquêteur",
+    exp4_org: "Institut de Recherche pour le Développement, Abidjan",
+    exp4_type: "Poste rémunéré",
+    exp4_desc: "Création de bases de données SIG, photogrammétrie drone, développement WebSIG et appui au projet ECVPSurvey.",
+    exp5_date: "2022—2024",
+    exp5_title: "Master Géomatique & Ingénierie de l'Environnement",
+    exp5_org: "Institut Universitaire d'Abidjan",
     exp5_type: "Formation",
-    exp5_desc: "Cartographie appliquée, SIG, diagnostic territorial.",
-    exp6_date: "Certification",
-    exp6_title: "Programmation Python Essentials",
-    exp6_org: "GOMYCODE",
-    exp6_type: "Certification",
-    exp6_desc: "Fondamentaux de la programmation Python appliqués au traitement de données.",
-    exp7_date: "Certification",
-    exp7_title: "Formation Drone Mapping",
-    exp7_org: "Agence de Formation Professionnelle",
-    exp7_type: "Certification",
-    exp7_desc: "Pilotage de drone et traitement photogrammétrique pour la cartographie.",
+    exp5_desc: "Analyse spatiale, bases de données géographiques, télédétection, WebSIG.",
+    exp6_date: "2018—2022",
+    exp6_title: "Master Géographie, aménagement du territoire",
+    exp6_org: "Université Félix Houphouët-Boigny, Abidjan",
+    exp6_type: "Formation",
+    exp6_desc: "Cartographie appliquée, diagnostic territorial. Mémoire sur l'aménagement du quartier d'Abobo-Té.",
+    exp7_date: "2018—2022",
+    exp7_title: "Licence en Géographie",
+    exp7_org: "Université Félix Houphouët-Boigny, Abidjan",
+    exp7_type: "Formation",
+    exp7_desc: "Cartographie appliquée, SIG, diagnostic territorial.",
     exp8_date: "Certification",
-    exp8_title: "Hackathon des Startups",
-    exp8_org: "EO for Wetlands and Floods Monitoring",
+    exp8_title: "Programmation Python Essentials",
+    exp8_org: "GOMYCODE",
     exp8_type: "Certification",
-    exp8_desc: "Participation à un hackathon sur l'observation de la Terre appliquée aux zones humides et inondations.",
+    exp8_desc: "Fondamentaux de la programmation Python appliqués au traitement de données.",
     exp9_date: "Certification",
-    exp9_title: "Attestation de Recherche Expérimentale",
-    exp9_org: "IRD",
+    exp9_title: "Formation Drone Mapping",
+    exp9_org: "Agence de Formation Professionnelle",
     exp9_type: "Certification",
-    exp9_desc: "Reconnaissance des travaux de recherche appliquée menés au sein de l'IRD.",
+    exp9_desc: "Pilotage de drone et traitement photogrammétrique pour la cartographie.",
+    exp10_date: "Certification",
+    exp10_title: "Hackathon des Startups",
+    exp10_org: "EO for Wetlands and Floods Monitoring",
+    exp10_type: "Certification",
+    exp10_desc: "Participation à un hackathon sur l'observation de la Terre appliquée aux zones humides et inondations.",
+    exp11_date: "Certification",
+    exp11_title: "Attestation de Recherche Expérimentale",
+    exp11_org: "IRD",
+    exp11_type: "Certification",
+    exp11_desc: "Reconnaissance des travaux de recherche appliquée menés au sein de l'IRD.",
     projects_eyebrow: "Portfolio",
     projects_title: "Projets",
-    projects_sub: "Sept projets géospatiaux réels, menés pour l'IRD et des programmes de recherche en Côte d'Ivoire.",
+    projects_sub: "projets géospatiaux réels, menés pour l'IRD et des programmes de recherche en Côte d'Ivoire.",
     filter_public: "Public",
     filter_recherche: "Recherche",
     filter_prive: "Confidentiel",
@@ -823,58 +875,69 @@ const translations = {
     exp_eyebrow: "Career",
     exp_title: "Experience & Education",
     exp_sub: "My professional, academic and associative journey.",
+    exp_start: "Since July 2023",
     filter_all: "All",
     filter_pro: "Professional",
     filter_formation: "Education",
     filter_certif: "Certifications",
-    exp1_date: "Since 10/2024",
-    exp1_title: "Geomatics Engineer",
+    exp1_date: "2025 – Today",
+    exp1_title: "Engineer – Jacqueville Geoportal Project",
     exp1_org: "Institute of Research for Development, Abidjan",
-    exp1_type: "Current position",
-    exp1_desc: "Geomatics lead for the IC-DKF Lab, designing a GIS platform for the Eco2Dev program and developing the Jacqueville geoportal.",
-    exp2_date: "07/2023—09/2024",
-    exp2_title: "Geomatics Assistant & Surveyor",
-    exp2_org: "Institute of Research for Development, Abidjan",
-    exp2_type: "Paid position",
-    exp2_desc: "Creation of GIS databases, drone photogrammetry, WebGIS development and support for the ECVPSurvey project.",
-    exp3_date: "2022—2024",
-    exp3_title: "Master in Geomatics & Environmental Engineering",
-    exp3_org: "University Institute of Abidjan",
-    exp3_type: "Education",
-    exp3_desc: "Spatial analysis, geographic databases, remote sensing, WebGIS.",
-    exp4_date: "2018—2022",
-    exp4_title: "Master in Geography, Territorial Planning",
-    exp4_org: "Félix Houphouët-Boigny University, Abidjan",
-    exp4_type: "Education",
-    exp4_desc: "Applied cartography, territorial diagnosis. Thesis on the planning of the Abobo-Té neighborhood.",
-    exp5_date: "2018—2022",
-    exp5_title: "Bachelor in Geography",
-    exp5_org: "Félix Houphouët-Boigny University, Abidjan",
+    exp1_type: "Project",
+    exp1_desc: "Design and development of an interactive geoportal for Jacqueville municipality, integration of multi-source data and training of local teams.",
+    exp2_date: "Jul. 2025 – Feb. 2026",
+    exp2_title: "GIS Support – Urban Socio-demographic Survey",
+    exp2_org: "Jean Lorougnon Guédé University, Daloa",
+    exp2_type: "Mission",
+    exp2_desc: "Design of KoboCollect questionnaire, data structuring in GIS, spatial analysis and thematic mapping production.",
+    exp3_date: "Since 10/2024",
+    exp3_title: "Geomatics Engineer",
+    exp3_org: "Institute of Research for Development, Abidjan",
+    exp3_type: "Current position",
+    exp3_desc: "Geomatics lead for the IC-DKF Lab, designing a GIS platform for the Eco2Dev program and developing the Jacqueville geoportal.",
+    exp4_date: "07/2023—09/2024",
+    exp4_title: "Geomatics Assistant & Surveyor",
+    exp4_org: "Institute of Research for Development, Abidjan",
+    exp4_type: "Paid position",
+    exp4_desc: "Creation of GIS databases, drone photogrammetry, WebGIS development and support for the ECVPSurvey project.",
+    exp5_date: "2022—2024",
+    exp5_title: "Master in Geomatics & Environmental Engineering",
+    exp5_org: "University Institute of Abidjan",
     exp5_type: "Education",
-    exp5_desc: "Applied cartography, GIS, territorial diagnosis.",
-    exp6_date: "Certification",
-    exp6_title: "Python Programming Essentials",
-    exp6_org: "GOMYCODE",
-    exp6_type: "Certification",
-    exp6_desc: "Fundamentals of Python programming applied to data processing.",
-    exp7_date: "Certification",
-    exp7_title: "Drone Mapping Training",
-    exp7_org: "Professional Training Agency",
-    exp7_type: "Certification",
-    exp7_desc: "Drone piloting and photogrammetric processing for cartography.",
+    exp5_desc: "Spatial analysis, geographic databases, remote sensing, WebGIS.",
+    exp6_date: "2018—2022",
+    exp6_title: "Master in Geography, Territorial Planning",
+    exp6_org: "Félix Houphouët-Boigny University, Abidjan",
+    exp6_type: "Education",
+    exp6_desc: "Applied cartography, territorial diagnosis. Thesis on the planning of the Abobo-Té neighborhood.",
+    exp7_date: "2018—2022",
+    exp7_title: "Bachelor in Geography",
+    exp7_org: "Félix Houphouët-Boigny University, Abidjan",
+    exp7_type: "Education",
+    exp7_desc: "Applied cartography, GIS, territorial diagnosis.",
     exp8_date: "Certification",
-    exp8_title: "Startup Hackathon",
-    exp8_org: "EO for Wetlands and Floods Monitoring",
+    exp8_title: "Python Programming Essentials",
+    exp8_org: "GOMYCODE",
     exp8_type: "Certification",
-    exp8_desc: "Participation in a hackathon on Earth Observation applied to wetlands and floods.",
+    exp8_desc: "Fundamentals of Python programming applied to data processing.",
     exp9_date: "Certification",
-    exp9_title: "Experimental Research Certificate",
-    exp9_org: "IRD",
+    exp9_title: "Drone Mapping Training",
+    exp9_org: "Professional Training Agency",
     exp9_type: "Certification",
-    exp9_desc: "Recognition of applied research work carried out within the IRD.",
+    exp9_desc: "Drone piloting and photogrammetric processing for cartography.",
+    exp10_date: "Certification",
+    exp10_title: "Startup Hackathon",
+    exp10_org: "EO for Wetlands and Floods Monitoring",
+    exp10_type: "Certification",
+    exp10_desc: "Participation in a hackathon on Earth Observation applied to wetlands and floods.",
+    exp11_date: "Certification",
+    exp11_title: "Experimental Research Certificate",
+    exp11_org: "IRD",
+    exp11_type: "Certification",
+    exp11_desc: "Recognition of applied research work carried out within the IRD.",
     projects_eyebrow: "Portfolio",
     projects_title: "Projects",
-    projects_sub: "Seven real geospatial projects, carried out for the IRD and research programs in Ivory Coast.",
+    projects_sub: "real geospatial projects, carried out for the IRD and research programs in Ivory Coast.",
     filter_public: "Public",
     filter_recherche: "Research",
     filter_prive: "Private",
@@ -927,7 +990,6 @@ function applyTranslations(lang) {
   document.querySelectorAll('[data-key]').forEach(el => {
     const key = el.dataset.key;
     if (t[key] !== undefined) {
-      // Preserve HTML if needed (for footer with heart)
       if (key === 'footer') {
         el.innerHTML = t[key];
       } else {
@@ -936,6 +998,11 @@ function applyTranslations(lang) {
     }
   });
   localStorage.setItem('jtg-lang', lang);
+  
+  // Mettre à jour les badges après traduction
+  setTimeout(() => {
+    updateProjectCount();
+  }, 50);
 }
 
 // ================= TOGGLE EVENT =================
@@ -947,6 +1014,83 @@ langToggle.addEventListener('click', () => {
 
 // ================= INITIAL LANG =================
 applyTranslations(currentLang);
+
+// ================= CALCULATE EXPERIENCE YEARS =================
+function calculateExperienceYears() {
+  const startDate = new Date(2023, 6, 3);
+  const now = new Date();
+  
+  let years = now.getFullYear() - startDate.getFullYear();
+  let months = now.getMonth() - startDate.getMonth();
+  
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+  
+  if (now.getDate() < startDate.getDate()) {
+    months--;
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+  }
+  
+  return { years, months };
+}
+
+function updateExperienceYears() {
+  const { years, months } = calculateExperienceYears();
+  const expDisplay = document.getElementById('expYearsDisplay');
+  if (!expDisplay) return;
+  
+  const lang = currentLang || 'fr';
+  
+  let text = '';
+  if (lang === 'fr') {
+    if (years === 0) {
+      text = `${months} mois d'expérience professionnelle`;
+    } else if (years === 1) {
+      text = `1 an${months > 0 ? ` et ${months} mois` : ''} d'expérience professionnelle`;
+    } else {
+      text = `${years} ans${months > 0 ? ` et ${months} mois` : ''} d'expérience professionnelle`;
+    }
+  } else {
+    if (years === 0) {
+      text = `${months} month${months > 1 ? 's' : ''} of professional experience`;
+    } else if (years === 1) {
+      text = `1 year${months > 0 ? ` and ${months} month${months > 1 ? 's' : ''}` : ''} of professional experience`;
+    } else {
+      text = `${years} years${months > 0 ? ` and ${months} month${months > 1 ? 's' : ''}` : ''} of professional experience`;
+    }
+  }
+  
+  expDisplay.textContent = text;
+}
+
+// ================= COMPTER LES PROJETS =================
+function updateProjectCount() {
+  const projectCards = document.querySelectorAll('#projList .project-card');
+  const total = projectCards.length;
+  
+  // Mettre à jour le badge "Projets livrés"
+  const badge2Strong = document.getElementById('projectsCountDisplay');
+  if (badge2Strong) {
+    const lang = currentLang || 'fr';
+    const label = lang === 'fr' ? 'géospatiaux' : 'geospatial';
+    badge2Strong.textContent = `${total}+ ${label}`;
+  }
+  
+  // Mettre à jour le sous-titre de la section projets
+  const projSub = document.getElementById('projectsSub');
+  if (projSub) {
+    const lang = currentLang || 'fr';
+    const t = translations[lang];
+    if (t && t.projects_sub) {
+      projSub.textContent = `${total} ${t.projects_sub}`;
+    }
+  }
+}
 
 // ================= THEME TOGGLE =================
 const themeToggle = document.getElementById('themeToggle');
@@ -1009,6 +1153,69 @@ window.addEventListener('scroll', ()=>{
   let current = '';
   sections.forEach(sec=>{ if(window.scrollY >= sec.offsetTop - 130) current = sec.id; });
   links.forEach(a=> a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+
+// ================= BACK TO TOP BUTTON =================
+const backToTopBtn = document.createElement('button');
+backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+backToTopBtn.setAttribute('aria-label', 'Retour en haut');
+backToTopBtn.style.cssText = `
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #0A0A0F;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 138, 61, 0.3);
+`;
+
+document.body.appendChild(backToTopBtn);
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 500) {
+    backToTopBtn.style.opacity = '1';
+    backToTopBtn.style.transform = 'translateY(0)';
+  } else {
+    backToTopBtn.style.opacity = '0';
+    backToTopBtn.style.transform = 'translateY(20px)';
+  }
+});
+
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ================= INIT =================
+// Initialiser l'affichage des années d'expérience
+updateExperienceYears();
+
+// Initialiser le compteur de projets
+setTimeout(() => {
+  updateProjectCount();
+}, 200);
+
+// Mettre à jour quand la langue change
+document.addEventListener('langChanged', () => {
+  setTimeout(() => {
+    updateExperienceYears();
+    updateProjectCount();
+  }, 50);
+});
+
+// Mettre à jour également lors du clic sur le bouton de langue
+langToggle.addEventListener('click', function() {
+  setTimeout(() => {
+    updateProjectCount();
+  }, 100);
 });
 </script>
 </body>
